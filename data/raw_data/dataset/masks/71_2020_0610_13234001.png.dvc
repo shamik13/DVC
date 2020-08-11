@@ -1,0 +1,7 @@
+md5: 02dae0f75871107249e86bef0b0a7a7d
+outs:
+- md5: 7f2ae580b6b92848a8ba2c9bb5df94a0
+  path: 71_2020_0610_13234001.png
+  cache: true
+  metric: false
+  persist: false

@@ -1,0 +1,7 @@
+md5: ae440191fe9c392e61ea65a78ffd82fd
+outs:
+- md5: e4bcb429a4a0eb635ad4e673b46c0548
+  path: 44_2020_0610_13093600.png
+  cache: true
+  metric: false
+  persist: false

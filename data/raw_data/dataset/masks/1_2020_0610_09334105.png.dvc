@@ -1,0 +1,7 @@
+md5: 91126cb9eda363049bc3b578fa4dd54b
+outs:
+- md5: 162736bc751e6816991445d20498b109
+  path: 1_2020_0610_09334105.png
+  cache: true
+  metric: false
+  persist: false

@@ -1,0 +1,7 @@
+md5: 444fa7a7557c005729f0782f2d3115e1
+outs:
+- md5: e812f6c701f96d0c402ad8202602572b
+  path: 93_2020_0610_13282102.png
+  cache: true
+  metric: false
+  persist: false
