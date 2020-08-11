@@ -1,0 +1,7 @@
+md5: ff60f5f0227073ae69fd9110149ece68
+outs:
+- md5: bafc3fb230dd2f688cab283e05e74ab8
+  path: 52_2020_0610_13115306.bmp
+  cache: true
+  metric: false
+  persist: false

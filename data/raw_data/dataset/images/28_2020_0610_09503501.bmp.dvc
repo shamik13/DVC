@@ -1,0 +1,7 @@
+md5: 28ec0f9427d2ff3451f0b52b16cf6541
+outs:
+- md5: 7f7e5482fbc54cea51492bf7f3b8c9d6
+  path: 28_2020_0610_09503501.bmp
+  cache: true
+  metric: false
+  persist: false

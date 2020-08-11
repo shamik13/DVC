@@ -1,0 +1,7 @@
+md5: b204efddb9a9227ab1d3df35502bf045
+outs:
+- md5: d6ede4f2f2f97771d897735a7335bd91
+  path: 75_2020_0610_13242210.bmp
+  cache: true
+  metric: false
+  persist: false

@@ -1,0 +1,7 @@
+md5: a4b4cb2a7ede42322103ce9885949929
+outs:
+- md5: 526e90bb36d4c91c2490e183c69b3a8a
+  path: 89_2020_0610_13274105.bmp
+  cache: true
+  metric: false
+  persist: false
