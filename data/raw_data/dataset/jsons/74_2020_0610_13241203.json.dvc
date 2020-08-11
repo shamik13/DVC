@@ -1,0 +1,7 @@
+md5: 073ccab981d5e504b8817a1929aa7291
+outs:
+- md5: 7aebbb36b0855a2b55ed600f1eb8c1dc
+  path: 74_2020_0610_13241203.json
+  cache: true
+  metric: false
+  persist: false
