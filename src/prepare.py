@@ -9,7 +9,7 @@ import numpy as np
 
 
 base = Path("/dgx/github/DVC/data")
-
+print("Added modification")
 
 for p in base.glob("*.zip"):
 
