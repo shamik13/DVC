@@ -1,7 +1,0 @@
-md5: ae8c51de330df59696f2408c0a8bd725
-outs:
-- md5: 1adf1611e368613d6cb78137de248144
-  path: 14_2020_0610_09425603.png
-  cache: true
-  metric: false
-  persist: false

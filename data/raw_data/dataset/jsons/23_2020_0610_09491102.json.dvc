@@ -1,7 +1,0 @@
-md5: 72b4d4c4b474a7fb4e3d2ace066dd101
-outs:
-- md5: 124736ef0470dea018d576b8f4578855
-  path: 23_2020_0610_09491102.json
-  cache: true
-  metric: false
-  persist: false

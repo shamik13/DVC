@@ -1,7 +1,0 @@
-md5: 28f86ecccf7243a3de01c3db4afc318b
-outs:
-- md5: 062f7aa023f99f6dbdc625d9230c7788
-  path: 94_2020_0610_13283208.bmp
-  cache: true
-  metric: false
-  persist: false

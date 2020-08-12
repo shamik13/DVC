@@ -1,7 +1,0 @@
-md5: a259c465144ab26e82c2b471b2831d36
-outs:
-- md5: bfe05333b03ba7acd9fadf3b88fe0653
-  path: 6_2020_0610_09363902.json
-  cache: true
-  metric: false
-  persist: false
