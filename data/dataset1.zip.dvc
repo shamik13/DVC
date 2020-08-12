@@ -1,0 +1,7 @@
+md5: cc0131b9c77933351075a275d0b8e250
+outs:
+- md5: e63b4d32471f0c2662ef327b07912b8d
+  path: dataset1.zip
+  cache: true
+  metric: false
+  persist: false
