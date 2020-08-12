@@ -1,0 +1,8 @@
+stages:
+  prepare:
+    cmd: python src/prepare.py
+    deps:
+    - src/prepare.py
+    - data/dataset.zip
+    outs:
+    - data/prepared

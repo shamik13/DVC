@@ -1,0 +1,10 @@
+prepare:
+  cmd: python src/prepare.py
+  deps:
+  - path: src/prepare.py
+    md5: 83546c82a7470fd57cd2e4f7e4ce8ab2
+  - path: data/dataset.zip
+    md5: e63b4d32471f0c2662ef327b07912b8d
+  outs:
+  - path: data/prepared
+    md5: 93bc9b2d442a4aab51edc613cbcb2ffe.dir
