@@ -1,10 +1,26 @@
-prepare:
-  cmd: python src/prepare.py
+dataset_creator:
+  cmd: python pipelines/run.py
   deps:
-  - path: data/dataset.zip
-    md5: e63b4d32471f0c2662ef327b07912b8d
-  - path: src/prepare.py
-    md5: 65991a0a8d437176f3e9291211503ae8
+  - path: data/202008131442_H.zip
+    md5: e61475fc05b7d049658dde0e8f893784
+  - path: pipelines/dataset_creator/__init__.py
+    md5: 022803f80922da5ed1e0a695117700bd
+  - path: pipelines/dataset_creator/create_info_csv.py
+    md5: 481ca95accaa685a72c83b0835bba271
+  - path: pipelines/dataset_creator/create_mask.py
+    md5: e2a41d9cc521e094da9f3d413ce7341a
+  - path: pipelines/dataset_creator/dataset_creator.py
+    md5: 8ce7c4ba8cb617f1391798035b19800a
+  - path: pipelines/dataset_creator/extract_zip.py
+    md5: 6c65237992cf2a35fc542e9f5d23c9a7
+  - path: pipelines/dataset_creator/rename_files.py
+    md5: 29de78d1c4f411edc9d7b7d20027c1cf
+  - path: pipelines/run.py
+    md5: 9976c82be11b486968a45a6ec60dcf58
   outs:
-  - path: data/prepared
-    md5: 93bc9b2d442a4aab51edc613cbcb2ffe.dir
+  - path: data/dataset/images
+    md5: 86af0337143644b4c1f6f24fadae2e62.dir
+  - path: data/dataset/info.csv
+    md5: f0c22f5263fe12d51fe752ddaa938319
+  - path: data/dataset/masks
+    md5: cd255daeb02392dceea0b5baff8cdcca.dir

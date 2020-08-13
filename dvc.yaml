@@ -1,8 +1,16 @@
 stages:
-  prepare:
-    cmd: python src/prepare.py
+  dataset_creator:
+    cmd: python pipelines/run.py
     deps:
-    - data/dataset.zip
-    - src/prepare.py
+    - data/202008131442_H.zip
+    - pipelines/dataset_creator/__init__.py
+    - pipelines/dataset_creator/create_info_csv.py
+    - pipelines/dataset_creator/create_mask.py
+    - pipelines/dataset_creator/dataset_creator.py
+    - pipelines/dataset_creator/extract_zip.py
+    - pipelines/dataset_creator/rename_files.py
+    - pipelines/run.py
     outs:
-    - data/prepared
+    - data/dataset/images
+    - data/dataset/info.csv
+    - data/dataset/masks
