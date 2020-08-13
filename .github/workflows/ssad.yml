@@ -11,14 +11,11 @@ jobs:
       - name: pipeline
         shell: bash
         run: |
-          docker attach metis-docker
-          dvc pull data --run-cache
+          dvc pull data/*.zip.dvc
           dvc repro
-          
-  run-model:
-    runs-on: [self-hosted]
-    steps:
-    - uses: actions/checkout@v2
-    - name: deploy
-      run: |
-        docker run 
+          git clone $URL
+          cd $PROJECT_NAME
+          git reset --hard $SHA1
+          docker build docker/ssad/.
+          docker run
+          dokeer rmi ??

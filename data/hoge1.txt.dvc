@@ -1,7 +1,0 @@
-md5: 086397b5d61679961a28070211fe5184
-outs:
-- md5: 10f41a7e31807cd877cfc286e70478df
-  path: hoge1.txt
-  cache: true
-  metric: false
-  persist: false
