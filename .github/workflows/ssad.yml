@@ -1,44 +1,27 @@
 name: runs-on-metis
 on:
   push:
-    branches: [ master ]
+    branches: [master]
 jobs:
-  clone:
+  run-ssad:
     runs-on: [self-hosted]
     steps:
-      - uses: actions/checkout@v2
       - name: clone
-        shell: bash
         run: |
           cd ~/github_actions
           git clone git@github.com:TaikiInoue/DVC.git
           git clone git@github.com:TaikiInoue/SSAD.git
-  docker-build-run:
-    runs-on: [self-hosted]
-    steps:
-      - uses: actions/checkout@v2
       - name: docker-build-run
-        shell: bash
         run: |
           cd ~/github_actions/SSAD/docker
           make build
           make run
-  prepare-dataset:
-    runs-on: [self-hosted]
-    steps:
-      - uses: actions/checkout@v2
       - name: prepare-dataset
-        shell: bash
         run: |
           cd /app/github_actions/DVC
           dvc pull data/202008131442_H.zip.dvc
           dvc repro
-  run-model:
-    runs-on: [self-hosted]
-    steps:
-      - uses: actions/checkout@v2
       - name: run-model
-        shell: bash
         run: |
           cd /app/github_actions/SSAD/ssad
           python run.py conf/config.yaml
