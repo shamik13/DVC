@@ -16,12 +16,3 @@ jobs:
           cd ~/github_actions/SSAD/docker
           make build
           make run
-      - name: prepare-dataset
-        run: |
-          cd /app/github_actions/DVC
-          dvc pull data/202008131442_H.zip.dvc
-          dvc repro
-      - name: run-model
-        run: |
-          cd /app/github_actions/SSAD/ssad
-          python run.py conf/config.yaml
