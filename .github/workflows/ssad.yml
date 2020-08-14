@@ -20,7 +20,7 @@ jobs:
       - name: docker-build-run
         shell: bash
         run: |
-          cd ~/github/SSAD/docker
+          cd ~/github_actions/SSAD/docker
           make build
           make run
   prepare-dataset:
