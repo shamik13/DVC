@@ -13,20 +13,31 @@ class DatasetCreator(
     DatasetCreatorRenameFiles,
     DatasetCreatorCreateDatasetDirectory,
 ):
-    def __init__(self, DVC: Path, unzip_dir: Path):
+    def __init__(self, raw_dataset_dir: Path, dataset_dir: Path, zip_path: Path):
 
-        self.DVC = DVC
-        self.unzip_dir = unzip_dir
+        """Initialize DatasetCreator
+
+        Args:
+            raw_dataset_dir (Path): path to unzipped dataset directory
+            dataset_dir (Path): path to dataset directory for DL models
+            zip_path (Path): path to zip file
+        """
+
+        self.raw_dataset_dir = raw_dataset_dir
+        self.dataset_dir = dataset_dir
+        self.zip_path = zip_path
 
 
 if __name__ == "__main__":
 
-    DVC = Path("/app/github_actions/DVC")
+    base = Path("/app/github_actions/DVC")
 
-    for p in DVC.glob("zip_dvc/*.zip"):
+    for zip_path in base.glob("raw_dataset/*.zip"):
 
-        unzip_dir = p.parent / p.stem
-        creator = DatasetCreator(DVC, unzip_dir)
+        raw_dataset_dir = zip_path.parent / zip_path.stem
+        dataset_dir = base / "dataset"
+
+        creator = DatasetCreator(raw_dataset_dir, dataset_dir, zip_path)
         creator.create_dataset_directory()
         creator.extract_zip()
         creator.create_mask()

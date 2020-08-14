@@ -1,4 +1,4 @@
 [core]
     remote = dvc_storage
 ['remote "dvc_storage"']
-    url = /home/inoue/dvc_storage
+    url = /app/github_actions/dvc_storage
