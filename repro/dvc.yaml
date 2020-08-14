@@ -1,0 +1,15 @@
+stages:
+  dataset_creator:
+    cmd: python3 /app/github_actions/DVC/repro/dataset_creator/dataset_creator.py
+    deps:
+    - ../zip_dvc/202008131442_H.zip
+    - dataset_creator/create_dataset_directory.py
+    - dataset_creator/create_info_csv.py
+    - dataset_creator/create_mask.py
+    - dataset_creator/dataset_creator.py
+    - dataset_creator/extract_zip.py
+    - dataset_creator/rename_files.py
+    outs:
+    - ../dataset/images
+    - ../dataset/info.csv
+    - ../dataset/masks

@@ -13,11 +13,12 @@ class DatasetCreatorCreateMask:
 
         self.create_anomaly_mask()
         self.create_normal_mask()
+        print("DONE: create_mask")
 
     def create_anomaly_mask(self):
 
         label_name_to_value = {"toubu_kizu": 1, "toubu_kizu_outside_marking": 0}
-        for p in self.base.glob("jsons/*.json"):
+        for p in self.unzip_dir.glob("jsons/*.json"):
 
             with open(p) as f:
                 data = json.load(f)
@@ -28,13 +29,13 @@ class DatasetCreatorCreateMask:
                 label_name_to_value=label_name_to_value,
             )
 
-            labelme.utils.lblsave(self.base / f"masks/{p.stem}.png", label)
+            labelme.utils.lblsave(self.unzip_dir / f"masks/{p.stem}.png", label)
 
     def create_normal_mask(self):
 
-        for p in self.base.glob("images/*.bmp"):
+        for p in self.unzip_dir.glob("images/*.bmp"):
 
-            mask_path = self.base / f"masks/{p.stem}.png"
+            mask_path = self.unzip_dir / f"masks/{p.stem}.png"
             if not mask_path.is_file():
                 img = cv2.imread(str(p))
                 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)

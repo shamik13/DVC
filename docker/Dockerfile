@@ -1,3 +1,5 @@
+# https://hub.docker.com/r/wkentaro/labelme/dockerfile
+
 FROM ubuntu:18.04
 ENV DEBIAN_FRONTEND=noninteractive
 WORKDIR /root
@@ -11,6 +13,7 @@ RUN set -xe \
         && rm requirements_apt.txt
 
 
+# https://dvc.org/doc/install/linux#install-from-repository
 RUN set -xe \
         && wget https://dvc.org/deb/dvc.list -O /etc/apt/sources.list.d/dvc.list \
         && apt update -y \
@@ -18,16 +21,12 @@ RUN set -xe \
 
 
 ARG PYTHON_VERSION=3.6.5
-ENV PATH /opt/conda/bin:$PATH
+ENV PYTHONPATH /app/github_actions/DVC:$PYTHONPATH
 
 COPY requirements_pip.txt requirements_pip.txt
 RUN set -xe \
-        && curl -o ~/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
-        && chmod +x ~/miniconda.sh \
-        && ~/miniconda.sh -b -p /opt/conda \
-        && rm ~/miniconda.sh \
-        && /opt/conda/bin/conda install -y python=$PYTHON_VERSION \
-        && pip install --no-cache-dir -r requirements_pip.txt \
+        && python3 -m pip install -U pip setuptools wheel \
+        && python3 -m pip install -U -r requirements_pip.txt \
         && rm requirements_pip.txt
 
 

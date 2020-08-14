@@ -1,0 +1,24 @@
+dataset_creator:
+  cmd: python3 /app/github_actions/DVC/repro/dataset_creator/dataset_creator.py
+  deps:
+  - path: ../zip_dvc/202008131442_H.zip
+    md5: e61475fc05b7d049658dde0e8f893784
+  - path: dataset_creator/create_dataset_directory.py
+    md5: 1629752611eb6d92b960f556d09d450d
+  - path: dataset_creator/create_info_csv.py
+    md5: bcbc5148794f16a95d11dfccf270faf7
+  - path: dataset_creator/create_mask.py
+    md5: 79bde326f84b8b4acd9a29b1234bf583
+  - path: dataset_creator/dataset_creator.py
+    md5: 4c244651efa5b467445e3cfa5a1072d8
+  - path: dataset_creator/extract_zip.py
+    md5: 39dab7a99ac52bb75a54f2d6568d4c20
+  - path: dataset_creator/rename_files.py
+    md5: e186aba5084bf6eca5c9cc893347a3de
+  outs:
+  - path: ../dataset/images
+    md5: 86af0337143644b4c1f6f24fadae2e62.dir
+  - path: ../dataset/info.csv
+    md5: 9598f717cc0d0da65cbb0fa5df9ef89e
+  - path: ../dataset/masks
+    md5: cd255daeb02392dceea0b5baff8cdcca.dir

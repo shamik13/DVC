@@ -17,16 +17,17 @@ class DatasetCreatorCreateInfoCSV:
         df = self._add_is_anomaly_product_column(df)
         df = self._add_is_train_and_is_test_column(df)
         df = self._check_for_default_values(df)
-        df.to_csv(self.base / "info.csv", index=False)
+        df.to_csv(self.unzip_dir / "info.csv", index=False)
+        print("DONE: create_info_csv")
 
     def _create_base_dataframe(self) -> pd.DataFrame:
 
-        df = pd.DataFrame({"old_stem": [p.stem for p in self.base.glob("images/*.bmp")]})
+        df = pd.DataFrame({"old_stem": [p.stem for p in self.unzip_dir.glob("images/*.bmp")]})
         df["product"] = df["old_stem"].apply(lambda x: x.split("_")[0])
         df["product"] = df["product"].apply(lambda x: int(x))
         df["timestamp"] = df["old_stem"].apply(lambda x: "".join(x.split("_")[1:]))
-        df["product_identifier"] = int(self.base.stem.split("_")[0])
-        df["product_type"] = self.base.stem.split("_")[1]
+        df["product_identifier"] = int(self.unzip_dir.stem.split("_")[0])
+        df["product_type"] = self.unzip_dir.stem.split("_")[1]
         return df
 
     def _add_angle_and_stem_column(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -45,7 +46,7 @@ class DatasetCreatorCreateInfoCSV:
 
         df["is_anomaly_image"] = -1
         for old_stem in df["old_stem"]:
-            mask = cv2.imread(str(self.base / f"masks/{old_stem}.png"))
+            mask = cv2.imread(str(self.unzip_dir / f"masks/{old_stem}.png"))
             if mask.sum() == 0:
                 df.loc[df["old_stem"] == old_stem, "is_anomaly_image"] = 0
             else:
