@@ -30,7 +30,7 @@ class DatasetCreator(
 
 if __name__ == "__main__":
 
-    base = Path("/app/github_actions/DVC")
+    base = Path("/app/github_actions/DVC")  # TODO: Inoue: I should move this param into param.yaml
 
     for zip_path in base.glob("raw_dataset/*.zip"):
 

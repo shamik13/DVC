@@ -66,7 +66,7 @@ class DatasetCreatorCreateInfoCSV:
 
     def _add_is_train_and_is_test_column(self, df: pd.DataFrame) -> pd.DataFrame:
 
-        TRAIN_SIZE = 0.7  # TODO: I have to move this param into param.yaml
+        TRAIN_SIZE = 0.7  # TODO: Inoue: I should move this param into param.yaml
 
         product_list = df["product"].unique()
         random.Random(0).shuffle(product_list)
