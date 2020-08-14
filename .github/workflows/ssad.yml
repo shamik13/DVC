@@ -1,9 +1,9 @@
-name: runs-on-metis
+name: run_ssad_on_metis
 on:
   push:
     branches: [master]
 jobs:
-  run-ssad:
+  run_ssad_on_metis:
     runs-on: [self-hosted]
     steps:
       - name: clone
@@ -11,8 +11,17 @@ jobs:
           cd ~/github_actions
           git clone git@github.com:TaikiInoue/DVC.git
           git clone git@github.com:TaikiInoue/SSAD.git
-      - name: docker-build-run
+      - name: repro
+        run: |
+          cd ~/github_actions/DVC/docker
+          make build
+          make run
+      - name: run_ssad
         run: |
           cd ~/github_actions/SSAD/docker
           make build
           make run
+      - name: clean-up
+        run: |
+          rm -rf ~/github_actions/DVC
+          rm -rf ~/github_actions/SSAD
