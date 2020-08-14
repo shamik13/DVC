@@ -1,8 +1,6 @@
 dataset_creator:
-  cmd: python pipelines/run.py
+  cmd: python3 pipelines/run.py
   deps:
-  - path: data/202008131442_H.zip
-    md5: e61475fc05b7d049658dde0e8f893784
   - path: pipelines/dataset_creator/__init__.py
     md5: 022803f80922da5ed1e0a695117700bd
   - path: pipelines/dataset_creator/create_info_csv.py
@@ -16,11 +14,13 @@ dataset_creator:
   - path: pipelines/dataset_creator/rename_files.py
     md5: 29de78d1c4f411edc9d7b7d20027c1cf
   - path: pipelines/run.py
-    md5: 7ffefcb5ca6857d177619bf84bc77ce8
+    md5: 1424835e4972615b538513896ce6a943
+  - path: zip_dvc/202008131442_H.zip
+    md5: e61475fc05b7d049658dde0e8f893784
   outs:
-  - path: data/dataset/images
+  - path: zip_dvc/dataset/images
     md5: 86af0337143644b4c1f6f24fadae2e62.dir
-  - path: data/dataset/info.csv
+  - path: zip_dvc/dataset/info.csv
     md5: 9598f717cc0d0da65cbb0fa5df9ef89e
-  - path: data/dataset/masks
+  - path: zip_dvc/dataset/masks
     md5: cd255daeb02392dceea0b5baff8cdcca.dir

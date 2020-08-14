@@ -1,8 +1,7 @@
 stages:
   dataset_creator:
-    cmd: python pipelines/run.py
+    cmd: python3 pipelines/run.py
     deps:
-    - data/202008131442_H.zip
     - pipelines/dataset_creator/__init__.py
     - pipelines/dataset_creator/create_info_csv.py
     - pipelines/dataset_creator/create_mask.py
@@ -10,7 +9,8 @@ stages:
     - pipelines/dataset_creator/extract_zip.py
     - pipelines/dataset_creator/rename_files.py
     - pipelines/run.py
+    - zip_dvc/202008131442_H.zip
     outs:
-    - data/dataset/images
-    - data/dataset/info.csv
-    - data/dataset/masks
+    - zip_dvc/dataset/images
+    - zip_dvc/dataset/info.csv
+    - zip_dvc/dataset/masks
