@@ -3,6 +3,7 @@ from .extract_zip import DatasetCreatorExtractZIP
 from .create_mask import DatasetCreatorCreateMask
 from .create_info_csv import DatasetCreatorCreateInfoCSV
 from .rename_files import DatasetCreatorRenameFiles
+from .create_folders import DatasetCreatorCreateFolders
 
 
 class DatasetCreator(
@@ -10,6 +11,7 @@ class DatasetCreator(
     DatasetCreatorCreateMask,
     DatasetCreatorCreateInfoCSV,
     DatasetCreatorRenameFiles,
+    DatasetCreatorCreateFolders,
 ):
     def __init__(self, zip_path: Path):
 
