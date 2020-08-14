@@ -1,0 +1,6 @@
+numpy
+pandas
+opencv-python-headless
+pyqt5
+labelme==3.16.7
+
