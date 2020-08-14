@@ -21,6 +21,10 @@ jobs:
           cd ~/github_actions/SSAD/docker
           make build
           make run
+  clean-up:
+    needs: run_ssad_on_metis
+    runs-on: [self-hosted]
+    steps:
       - name: clean-up
         run: |
           rm -rf ~/github_actions/DVC
