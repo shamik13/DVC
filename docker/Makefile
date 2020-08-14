@@ -8,7 +8,6 @@ run:
 			--workdir /app/github_actions/DVC \
 			--volume ~/github_actions/DVC:/app/github_actions/DVC \
 			--volume ~/github_actions/dvc_storage:/app/github_actions/dvc_storage \
-			--name dvc \
 			dvc:latest
 
 debug:
