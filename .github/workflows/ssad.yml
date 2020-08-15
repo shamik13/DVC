@@ -11,8 +11,8 @@ jobs:
           rm -rf ~/github_actions/DVC
           rm -rf ~/github_actions/SSAD
   run_ssad_on_metis:
-    needs: cleen_up
     runs-on: [self-hosted]
+    needs: cleen_up
     steps:
       - name: clone
         run: |
