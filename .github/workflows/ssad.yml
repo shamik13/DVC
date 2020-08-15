@@ -3,7 +3,15 @@ on:
   push:
     branches: [master]
 jobs:
+  clean_up:
+    runs-on: [self-hosted]
+    steps:
+      - name: clean_up
+        run: |
+          rm -rf ~/github_actions/DVC
+          rm -rf ~/github_actions/SSAD
   run_ssad_on_metis:
+    needs: cleen_up
     runs-on: [self-hosted]
     steps:
       - name: clone
@@ -21,11 +29,3 @@ jobs:
           cd ~/github_actions/SSAD/docker
           make build
           make run
-  clean-up:
-    needs: run_ssad_on_metis
-    runs-on: [self-hosted]
-    steps:
-      - name: clean-up
-        run: |
-          rm -rf ~/github_actions/DVC
-          rm -rf ~/github_actions/SSAD
