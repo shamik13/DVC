@@ -12,7 +12,7 @@ jobs:
           rm -rf ~/github_actions/SSAD
   run_ssad_on_metis:
     runs-on: [self-hosted]
-    needs: cleen_up
+    needs: clean_up
     steps:
       - name: clone
         run: |
