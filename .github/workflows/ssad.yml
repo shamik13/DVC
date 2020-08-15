@@ -8,8 +8,8 @@ jobs:
     steps:
       - name: clean_up
         run: |
-          rm -rf ~/github_actions/DVC
-          rm -rf ~/github_actions/SSAD
+          sudo rm -rf ~/github_actions/DVC
+          sudo rm -rf ~/github_actions/SSAD
   run_ssad_on_metis:
     runs-on: [self-hosted]
     needs: clean_up
