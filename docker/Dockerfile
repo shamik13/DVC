@@ -10,7 +10,9 @@ RUN set -xe \
         && apt update -y \
         && apt install -y --no-install-recommends $(cat requirements_apt.txt) \
         && rm -rf /var/lib/apt/lists/* \
-        && rm requirements_apt.txt
+        && rm requirements_apt.txt \
+        && git config --global user.email "taikiinoue45@gmail.com" \
+        && git config --global user.name "TaikiInoue"
 
 
 # https://dvc.org/doc/install/linux#install-from-repository

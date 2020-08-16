@@ -1,8 +1,9 @@
-import cv2
 import json
+from pathlib import Path
+
+import cv2
 import labelme
 import numpy as np
-from pathlib import Path
 
 
 class DatasetCreatorCreateMask:

@@ -5,3 +5,4 @@ python3-matplotlib
 python3-pyqt5
 wget
 zsh
+peco

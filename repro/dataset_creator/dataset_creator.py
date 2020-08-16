@@ -1,9 +1,10 @@
 from pathlib import Path
-from extract_zip import DatasetCreatorExtractZIP
-from create_mask import DatasetCreatorCreateMask
-from create_info_csv import DatasetCreatorCreateInfoCSV
-from rename_files import DatasetCreatorRenameFiles
+
 from create_dataset_directory import DatasetCreatorCreateDatasetDirectory
+from create_info_csv import DatasetCreatorCreateInfoCSV
+from create_mask import DatasetCreatorCreateMask
+from extract_zip import DatasetCreatorExtractZIP
+from rename_files import DatasetCreatorRenameFiles
 
 
 class DatasetCreator(
@@ -18,7 +19,7 @@ class DatasetCreator(
         """Initialize DatasetCreator
 
         Args:
-            raw_dataset_dir (Path): path to unzipped dataset directory
+            raw_dataset_dir (Path): path to unzipped directory
             dataset_dir (Path): path to dataset directory for DL models
             zip_path (Path): path to zip file
         """
