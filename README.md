@@ -18,9 +18,9 @@ Data Version Control
 | angle | Camera angle | 0-7 (work station 1), 0-11 (work station 2), 0-4 (work station 3), 0 (work station 4) |
 | is_anomaly_image | Does the image have kizu? | 0 (No), 1 (Yes) |
 | is_anomaly_product | Does the product have kizu? | 0 (No), 1 (Yes) |
-| supervise | The type of data for supervised learning | train, test |
-| unsupervise | The type of data for unsupervised learning | train, test |
-| semi_supervise | The type of data for semi-supervised learning | train, test |
+| supervise | The type of data for supervised learning | train, test, unuse |
+| unsupervise | The type of data for unsupervised learning | train, test, unuse |
+| semi_supervise | The type of data for semi-supervised learning | train, test, unuse |
 
 
 I created info.csv with the following points in my mind:
