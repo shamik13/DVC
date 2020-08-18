@@ -21,3 +21,15 @@ Data Version Control
 | supervise | The type of data for supervised learning | train, test |
 | unsupervise | The type of data for unsupervised learning | train, test |
 | semi_supervise | The type of data for semi-supervised learning | train, test |
+
+
+I created info.csv with the following points in my mind:
+
+- Split data into train and test based on product id to avoid data leakage
+- Share test product id during supervise, unsupervise, semi-supervise in order to compare quantitatively.
+
+<br>
+
+## How to Use the dataset
+
+
