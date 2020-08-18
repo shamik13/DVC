@@ -1,24 +1,80 @@
-dataset_creator:
-  cmd: python3 /app/github_actions/DVC/repro/dataset_creator/dataset_creator.py
+dataset_creator_20200818_H_2_anomaly:
+  cmd: python3 /app/github_actions/DVC/repro/dataset_creator/dataset_creator.py /app/github_actions/DVC/raw_datasets/20200818_H_2_anomaly.zip
   deps:
-  - path: ../raw_dataset/202008131442_H.zip
-    md5: e61475fc05b7d049658dde0e8f893784
-  - path: dataset_creator/create_dataset_directory.py
-    md5: b428ad9206bf5e0f548d878e63ce3952
+  - path: ../raw_datasets/20200818_H_2_anomaly.zip
+    md5: f445b6886ebeb62feb6c920640e32ed0
   - path: dataset_creator/create_info_csv.py
-    md5: b64892a0deaf38e1c49f9bde8f3457fe
+    md5: 87779fd662943c08d1e7216f1acaa30f
   - path: dataset_creator/create_mask.py
-    md5: 75b0d71598b6f5d7feac82091cfb8466
+    md5: e8561cf59cfc16fd4a38286f132b2b2c
   - path: dataset_creator/dataset_creator.py
-    md5: c563537deee80c3b5a09f0c0ee908977
+    md5: be8dac2e22c02603cfee38615a4ae25a
   - path: dataset_creator/extract_zip.py
-    md5: db10745d1a92cf1d447852f3e36097a8
-  - path: dataset_creator/rename_files.py
-    md5: 9bdaf182cfbb3f19345ea1fa4a373a81
+    md5: 092bd5575fcab9432b605d140ef0386d
   outs:
-  - path: ../dataset/images
-    md5: 86af0337143644b4c1f6f24fadae2e62.dir
-  - path: ../dataset/info.csv
-    md5: 9598f717cc0d0da65cbb0fa5df9ef89e
-  - path: ../dataset/masks
-    md5: cd255daeb02392dceea0b5baff8cdcca.dir
+  - path: ../raw_datasets/20200818_H_2_anomaly
+    md5: 30d6daa0ae9d9497dfcc3a538c7b634a.dir
+dataset_creator_20200819_H_2_anomaly:
+  cmd: python3 /app/github_actions/DVC/repro/dataset_creator/dataset_creator.py /app/github_actions/DVC/raw_datasets/20200819_H_2_anomaly.zip
+  deps:
+  - path: ../raw_datasets/20200819_H_2_anomaly.zip
+    md5: 3ccd13d00e441bb1a7241b0395a26158
+  - path: dataset_creator/create_info_csv.py
+    md5: 87779fd662943c08d1e7216f1acaa30f
+  - path: dataset_creator/create_mask.py
+    md5: e8561cf59cfc16fd4a38286f132b2b2c
+  - path: dataset_creator/dataset_creator.py
+    md5: be8dac2e22c02603cfee38615a4ae25a
+  - path: dataset_creator/extract_zip.py
+    md5: 092bd5575fcab9432b605d140ef0386d
+  outs:
+  - path: ../raw_datasets/20200819_H_2_anomaly
+    md5: 512eef910b8507e5c2113e147a2f406d.dir
+dataset_creator_20200820_H_2_anomaly:
+  cmd: python3 /app/github_actions/DVC/repro/dataset_creator/dataset_creator.py /app/github_actions/DVC/raw_datasets/20200820_H_2_anomaly.zip
+  deps:
+  - path: ../raw_datasets/20200820_H_2_anomaly.zip
+    md5: 7a4f122ab4783f2eb6008338617879a9
+  - path: dataset_creator/create_info_csv.py
+    md5: 87779fd662943c08d1e7216f1acaa30f
+  - path: dataset_creator/create_mask.py
+    md5: e8561cf59cfc16fd4a38286f132b2b2c
+  - path: dataset_creator/dataset_creator.py
+    md5: be8dac2e22c02603cfee38615a4ae25a
+  - path: dataset_creator/extract_zip.py
+    md5: 092bd5575fcab9432b605d140ef0386d
+  outs:
+  - path: ../raw_datasets/20200820_H_2_anomaly
+    md5: 6780039d64358f70b8b5a78370da0332.dir
+dataset_creator_20200821_H_2_anomaly:
+  cmd: python3 /app/github_actions/DVC/repro/dataset_creator/dataset_creator.py /app/github_actions/DVC/raw_datasets/20200821_H_2_anomaly.zip
+  deps:
+  - path: ../raw_datasets/20200821_H_2_anomaly.zip
+    md5: ca9197fc322536f2a47e593c07122766
+  - path: dataset_creator/create_info_csv.py
+    md5: 87779fd662943c08d1e7216f1acaa30f
+  - path: dataset_creator/create_mask.py
+    md5: e8561cf59cfc16fd4a38286f132b2b2c
+  - path: dataset_creator/dataset_creator.py
+    md5: be8dac2e22c02603cfee38615a4ae25a
+  - path: dataset_creator/extract_zip.py
+    md5: 092bd5575fcab9432b605d140ef0386d
+  outs:
+  - path: ../raw_datasets/20200821_H_2_anomaly
+    md5: 284dac949e4d4e7ec506f983f898e377.dir
+dataset_creator_20200822_H_2_anomaly:
+  cmd: python3 /app/github_actions/DVC/repro/dataset_creator/dataset_creator.py /app/github_actions/DVC/raw_datasets/20200822_H_2_anomaly.zip
+  deps:
+  - path: ../raw_datasets/20200822_H_2_anomaly.zip
+    md5: ba326a61ea35a0346682481e3a978fc8
+  - path: dataset_creator/create_info_csv.py
+    md5: 87779fd662943c08d1e7216f1acaa30f
+  - path: dataset_creator/create_mask.py
+    md5: e8561cf59cfc16fd4a38286f132b2b2c
+  - path: dataset_creator/dataset_creator.py
+    md5: be8dac2e22c02603cfee38615a4ae25a
+  - path: dataset_creator/extract_zip.py
+    md5: 092bd5575fcab9432b605d140ef0386d
+  outs:
+  - path: ../raw_datasets/20200822_H_2_anomaly
+    md5: b9f4f3db96163658d4f980496af51f0a.dir

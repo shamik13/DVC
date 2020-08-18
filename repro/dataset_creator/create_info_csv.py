@@ -16,21 +16,24 @@ class DatasetCreatorCreateInfoCSV:
         df = self._add_angle_and_stem_column(df)
         df = self._add_is_anomaly_image_column(df)
         df = self._add_is_anomaly_product_column(df)
-        df = self._add_is_train_and_is_test_column(df)
+        df = self._add_supervise_column(df)
         df = self._check_for_default_values(df)
         df.to_csv(self.raw_dataset_dir / "info.csv", index=False)
         print("DONE: create_info_csv")
 
     def _create_base_dataframe(self) -> pd.DataFrame:
 
-        df = pd.DataFrame(
-            {"old_stem": [p.stem for p in self.raw_dataset_dir.glob("images/*.bmp")]}
-        )
-        df["product"] = df["old_stem"].apply(lambda x: x.split("_")[0])
+        di = {"raw_stem": [p.stem for p in self.raw_dataset_dir.glob("images/*.bmp")]}
+        df = pd.DataFrame(di)
+        df["product"] = df["raw_stem"].apply(lambda x: x.split("_")[0])
         df["product"] = df["product"].apply(lambda x: int(x))
-        df["timestamp"] = df["old_stem"].apply(lambda x: "".join(x.split("_")[1:]))
-        df["product_identifier"] = int(self.raw_dataset_dir.stem.split("_")[0])
-        df["product_type"] = self.raw_dataset_dir.stem.split("_")[1]
+        df["timestamp"] = df["raw_stem"].apply(lambda x: "".join(x.split("_")[1:]))
+
+        received_date, product_type, work_station, _ = self.raw_dataset_dir.stem.split("_")
+        df["received_date"] = int(received_date)
+        df["product_type"] = product_type
+        df["work_station"] = int(work_station)
+        df["crop_type"] = "tobu"
         return df
 
     def _add_angle_and_stem_column(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -48,12 +51,12 @@ class DatasetCreatorCreateInfoCSV:
     def _add_is_anomaly_image_column(self, df: pd.DataFrame) -> pd.DataFrame:
 
         df["is_anomaly_image"] = -1
-        for old_stem in df["old_stem"]:
-            mask = cv2.imread(str(self.raw_dataset_dir / f"masks/{old_stem}.png"))
+        for raw_stem in df["raw_stem"]:
+            mask = cv2.imread(str(self.raw_dataset_dir / f"masks/{raw_stem}.png"))
             if mask.sum() == 0:
-                df.loc[df["old_stem"] == old_stem, "is_anomaly_image"] = 0
+                df.loc[df["raw_stem"] == raw_stem, "is_anomaly_image"] = 0
             else:
-                df.loc[df["old_stem"] == old_stem, "is_anomaly_image"] = 1
+                df.loc[df["raw_stem"] == raw_stem, "is_anomaly_image"] = 1
         return df
 
     def _add_is_anomaly_product_column(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -65,7 +68,7 @@ class DatasetCreatorCreateInfoCSV:
         df.loc[df["is_anomaly_product"] != 0, "is_anomaly_product"] = 1
         return df
 
-    def _add_is_train_and_is_test_column(self, df: pd.DataFrame) -> pd.DataFrame:
+    def _add_supervise_column(self, df: pd.DataFrame) -> pd.DataFrame:
 
         TRAIN_SIZE = 0.7  # TODO: Inoue: I should move this param into param.yaml
 
@@ -76,11 +79,11 @@ class DatasetCreatorCreateInfoCSV:
         train_product_list = product_list[:threshold]
         test_product_list = product_list[threshold:]
 
-        df["data_type"] = -1
+        df["supervise"] = -1
         for train_product in train_product_list:
-            df.loc[df["product"] == train_product, "data_type"] = "train"
+            df.loc[df["product"] == train_product, "supervise"] = "train"
         for test_product in test_product_list:
-            df.loc[df["product"] == test_product, "data_type"] = "test"
+            df.loc[df["product"] == test_product, "supervise"] = "test"
         return df
 
     def _check_for_default_values(self, df: pd.DataFrame):

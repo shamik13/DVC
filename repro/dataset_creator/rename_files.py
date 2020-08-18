@@ -12,7 +12,7 @@ class DatasetCreatorRenameFiles:
         df = pd.read_csv(self.raw_dataset_dir / "info.csv")
         for i in df.index:
 
-            old_stem = df.loc[i, "old_stem"]
+            old_stem = df.loc[i, "raw_stem"]
             new_stem = df.loc[i, "stem"]
 
             old_img_path = self.raw_dataset_dir / f"images/{old_stem}.bmp"

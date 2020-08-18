@@ -12,5 +12,4 @@ class DatasetCreatorExtractZIP:
         with ZipFile(self.zip_path, "r") as f:
             f.extractall(self.zip_path.parent)
 
-        Path(self.raw_dataset_dir / "masks").mkdir()
         print("DONE: extract_zip")
