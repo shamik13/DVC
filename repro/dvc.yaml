@@ -1,56 +1,15 @@
 stages:
-  dataset_creator_20200818_H_2_anomaly:
+  dataset_creator:
     cmd: python3 /app/github_actions/DVC/repro/dataset_creator/dataset_creator.py
-      /app/github_actions/DVC/raw_datasets/20200818_H_2_anomaly.zip
     deps:
-    - ../raw_datasets/20200818_H_2_anomaly.zip
+    - ../raw_datasets
     - dataset_creator/create_info_csv.py
     - dataset_creator/create_mask.py
     - dataset_creator/dataset_creator.py
     - dataset_creator/extract_zip.py
+    - dataset_creator/merge_raw_dataset.py
+    - dataset_creator/rename_files.py
     outs:
-    - ../raw_datasets/20200818_H_2_anomaly
-  dataset_creator_20200819_H_2_anomaly:
-    cmd: python3 /app/github_actions/DVC/repro/dataset_creator/dataset_creator.py
-      /app/github_actions/DVC/raw_datasets/20200819_H_2_anomaly.zip
-    deps:
-    - ../raw_datasets/20200819_H_2_anomaly.zip
-    - dataset_creator/create_info_csv.py
-    - dataset_creator/create_mask.py
-    - dataset_creator/dataset_creator.py
-    - dataset_creator/extract_zip.py
-    outs:
-    - ../raw_datasets/20200819_H_2_anomaly
-  dataset_creator_20200820_H_2_anomaly:
-    cmd: python3 /app/github_actions/DVC/repro/dataset_creator/dataset_creator.py
-      /app/github_actions/DVC/raw_datasets/20200820_H_2_anomaly.zip
-    deps:
-    - ../raw_datasets/20200820_H_2_anomaly.zip
-    - dataset_creator/create_info_csv.py
-    - dataset_creator/create_mask.py
-    - dataset_creator/dataset_creator.py
-    - dataset_creator/extract_zip.py
-    outs:
-    - ../raw_datasets/20200820_H_2_anomaly
-  dataset_creator_20200821_H_2_anomaly:
-    cmd: python3 /app/github_actions/DVC/repro/dataset_creator/dataset_creator.py
-      /app/github_actions/DVC/raw_datasets/20200821_H_2_anomaly.zip
-    deps:
-    - ../raw_datasets/20200821_H_2_anomaly.zip
-    - dataset_creator/create_info_csv.py
-    - dataset_creator/create_mask.py
-    - dataset_creator/dataset_creator.py
-    - dataset_creator/extract_zip.py
-    outs:
-    - ../raw_datasets/20200821_H_2_anomaly
-  dataset_creator_20200822_H_2_anomaly:
-    cmd: python3 /app/github_actions/DVC/repro/dataset_creator/dataset_creator.py
-      /app/github_actions/DVC/raw_datasets/20200822_H_2_anomaly.zip
-    deps:
-    - ../raw_datasets/20200822_H_2_anomaly.zip
-    - dataset_creator/create_info_csv.py
-    - dataset_creator/create_mask.py
-    - dataset_creator/dataset_creator.py
-    - dataset_creator/extract_zip.py
-    outs:
-    - ../raw_datasets/20200822_H_2_anomaly
+    - ../dataset/images
+    - ../dataset/info.csv
+    - ../dataset/masks

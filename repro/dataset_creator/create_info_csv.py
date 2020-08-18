@@ -45,7 +45,16 @@ class DatasetCreatorCreateInfoCSV:
             for angle, row in enumerate(df.query("product==@product").index):
                 df.loc[row, "angle"] = angle
                 df.loc[row, "stem"] = df.query("product==@product & angle==0")["timestamp"].item()
-        df["stem"] = df["stem"] + "_" + df["angle"].apply(lambda x: str(x))
+
+        # TODO: Inoue: Fix here when we receive new datasets
+        df["stem"] = (
+            df["stem"]
+            + df["product"].apply(lambda x: str(x).zfill(3))
+            + "_"
+            + df["crop_type"]
+            + "_"
+            + df["angle"].apply(lambda x: str(x))
+        )
         return df
 
     def _add_is_anomaly_image_column(self, df: pd.DataFrame) -> pd.DataFrame:

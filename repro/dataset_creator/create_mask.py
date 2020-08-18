@@ -12,7 +12,7 @@ class DatasetCreatorCreateMask:
 
     def create_mask(self):
 
-        Path(self.raw_dataset_dir / "masks").mkdir()
+        Path(self.raw_dataset_dir / "masks").mkdir(parents=True, exist_ok=True)
         self.create_anomaly_mask()
         self.create_normal_mask()
         print("DONE: create_mask")
