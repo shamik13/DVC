@@ -27,8 +27,8 @@ DVC
 
 | Variable | Definition | Key |
 | :-       | :-         | :-  |
-| old_stem | Old file name without its suffix | - |
-| stem | Renamed file name without its suffix | - |
+| raw_stem | Raw filename without its suffix | - |
+| stem | Renamed filename without its suffix | - |
 | timestamp | The time the image was taken | - |
 | received_date | The date the dataset was completed | - |
 | product | product id | - |
