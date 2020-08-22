@@ -3,6 +3,14 @@ Data Version Control
 
 <br>
 
+## Pull Dataset in Your PC
+
+```
+cd docker
+make build
+make run
+```
+
 ## info.csv
 
 | Variable | Definition | Key |
