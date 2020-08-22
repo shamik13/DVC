@@ -3,13 +3,15 @@ Data Version Control
 
 <br>
 
-## Pull Dataset in Your PC
+## Clone Dataset in Your PC
 
 ```
 cd docker
 make build
 make run
 ```
+
+<br>
 
 ## info.csv
 
