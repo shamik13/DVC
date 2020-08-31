@@ -2,7 +2,7 @@ dataset_creator:
   cmd: python3 /app/DVC/repro/dataset_creator/dataset_creator.py
   deps:
   - path: ../raw_datasets
-    md5: 97e3767144d1e2f574385cb4ee00f1f6.dir
+    md5: 93c4072f7d3efd2e0675891d0e6ea8f0.dir
   - path: dataset_creator/create_info_csv.py
     md5: 4fbc5166400d4d4e5f63570ee439237a
   - path: dataset_creator/create_mask.py
@@ -17,8 +17,8 @@ dataset_creator:
     md5: 850b9febb5f8598ce2c19d585c2db82a
   outs:
   - path: ../dataset/images
-    md5: 475cd8cfb7d0e3ac71e743b1796ef2cd.dir
+    md5: 5d802e4f1cfd730679b284462caea468.dir
   - path: ../dataset/info.csv
-    md5: 2fefbad749a404a19a36cba0f2c9479d
+    md5: 516f76d61888262c12642b6d394d3911
   - path: ../dataset/masks
-    md5: 4e37898d2a0d1b92a974ed5fa477a6f5.dir
+    md5: d5bdaef92314068987c3d64975194670.dir
