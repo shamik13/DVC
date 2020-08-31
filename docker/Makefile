@@ -10,7 +10,6 @@ run_repro:
 			--network host \
 			--workdir /app/DVC \
 			--volume ~/github/DVC:/app/DVC \
-			--volume ~/github_actions/dvc_storage:/app/dvc_storage \
 			dvc:repro \
 			entrypoint_repro.sh
 
@@ -22,7 +21,6 @@ run_debug:
 			--volume ~/.zshrc:/tmp/.zshrc:ro \
 			--volume ~/.tmux.conf:/tmp/.tmux.conf:ro \
 			--volume ~/github/DVC:/app/DVC \
-			--volume ~/github_actions/dvc_storage:/app/dvc_storage \
 			--name dvc_debug \
 			--hostname dvc_debug \
 			dvc:debug

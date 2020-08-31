@@ -2,7 +2,7 @@ dataset_creator:
   cmd: python3 /app/DVC/repro/dataset_creator/dataset_creator.py
   deps:
   - path: ../raw_datasets
-    md5: 9fa33dd0b67a30fd35a81fde4ed2204a.dir
+    md5: 97e3767144d1e2f574385cb4ee00f1f6.dir
   - path: dataset_creator/create_info_csv.py
     md5: 4fbc5166400d4d4e5f63570ee439237a
   - path: dataset_creator/create_mask.py
