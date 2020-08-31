@@ -1,14 +1,15 @@
 
 build:
-		docker build -t dvc:latest .
+		docker build -t dvc:run .
 
-run:
+repro:
 		docker run --rm \
 			--network host \
 			--workdir /app/github_actions/DVC \
 			--volume ~/github_actions/DVC:/app/github_actions/DVC \
 			--volume ~/github_actions/dvc_storage:/app/github_actions/dvc_storage \
-			dvc:latest
+			dvc:latest \
+			entrypoint_repro.sh
 
 debug:
 		docker run -it --rm \
@@ -20,4 +21,5 @@ debug:
 			--volume ~/github_actions/DVC:/app/github_actions/DVC \
 			--volume ~/github_actions/dvc_storage:/app/github_actions/dvc_storage \
 			--name dvc \
-			dvc:latest
+			dvc:latest \
+			entrypoint_debug.sh

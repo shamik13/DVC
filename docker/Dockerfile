@@ -30,7 +30,3 @@ RUN set -xe \
         && python3 -m pip install -U pip setuptools wheel \
         && python3 -m pip install -U -r requirements_pip.txt \
         && rm requirements_pip.txt
-
-
-COPY entrypoint.sh entrypoint.sh
-ENTRYPOINT /root/entrypoint.sh
