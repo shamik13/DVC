@@ -1,25 +1,28 @@
 
-build:
-		docker build -t dvc:run .
+build_repro:
+		docker build -t dvc:repro --build-arg ENTRYPOINT_SCRIPT=entrypoint_repro.sh .
 
-repro:
+build_debug:
+		docker build -t dvc:debug --build-arg ENTRYPOINT_SCRIPT=entrypoint_debug.sh .
+
+run_repro:
 		docker run --rm \
 			--network host \
-			--workdir /app/github_actions/DVC \
-			--volume ~/github_actions/DVC:/app/github_actions/DVC \
-			--volume ~/github_actions/dvc_storage:/app/github_actions/dvc_storage \
-			dvc:latest \
+			--workdir /app/DVC \
+			--volume ~/github/DVC:/app/DVC \
+			--volume ~/github_actions/dvc_storage:/app/dvc_storage \
+			dvc:repro \
 			entrypoint_repro.sh
 
-debug:
+run_debug:
 		docker run -it --rm \
 			--network host \
-			--workdir /app/github_actions/DVC \
-			--volume /home/inoue/.ssh:/tmp/.ssh:ro \
-			--volume /home/inoue/.zshrc:/tmp/.zshrc:ro \
-			--volume /home/inoue/.tmux.conf:/tmp/.tmux.conf:ro \
-			--volume ~/github_actions/DVC:/app/github_actions/DVC \
-			--volume ~/github_actions/dvc_storage:/app/github_actions/dvc_storage \
-			--name dvc \
-			dvc:latest \
-			entrypoint_debug.sh
+			--workdir /app/DVC \
+			--volume ~/.ssh:/tmp/.ssh:ro \
+			--volume ~/.zshrc:/tmp/.zshrc:ro \
+			--volume ~/.tmux.conf:/tmp/.tmux.conf:ro \
+			--volume ~/github/DVC:/app/DVC \
+			--volume ~/github_actions/dvc_storage:/app/dvc_storage \
+			--name dvc_debug \
+			--hostname dvc_debug \
+			dvc:debug

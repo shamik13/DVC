@@ -23,10 +23,15 @@ RUN set -xe \
 
 
 ARG PYTHON_VERSION=3.6.5
-ENV PYTHONPATH /app/github_actions/DVC:$PYTHONPATH
+ENV PYTHONPATH /app/DVC:$PYTHONPATH
 
 COPY requirements_pip.txt requirements_pip.txt
 RUN set -xe \
         && python3 -m pip install -U pip setuptools wheel \
         && python3 -m pip install -U -r requirements_pip.txt \
         && rm requirements_pip.txt
+
+
+ARG ENTRYPOINT_SCRIPT
+COPY $ENTRYPOINT_SCRIPT /root/entrypoint.sh
+ENTRYPOINT /root/entrypoint.sh

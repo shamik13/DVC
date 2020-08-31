@@ -1,2 +1,2 @@
-dvc pull raw_dataset/202008131442_H.zip.dvc
-dvc repro -c repro
+dvc pull raw_datasets/*.zip.dvc
+dvc repro --cwd repro

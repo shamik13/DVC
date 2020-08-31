@@ -1,5 +1,5 @@
 
-base=/app/github_actions/DVC
+base=/app/DVC
 
 dvc run -n dataset_creator \
         -d ${base}/repro/dataset_creator/create_info_csv.py \
