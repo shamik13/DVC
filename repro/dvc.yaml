@@ -1,6 +1,6 @@
 stages:
   dataset_creator:
-    cmd: python3 /app/DVC/repro/dataset_creator/dataset_creator.py
+    cmd: python /mlflow/data/repro/dataset_creator/dataset_creator.py
     deps:
     - ../raw_datasets
     - dataset_creator/create_info_csv.py
