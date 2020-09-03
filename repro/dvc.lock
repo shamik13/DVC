@@ -1,5 +1,5 @@
 dataset_creator:
-  cmd: python3 /app/DVC/repro/dataset_creator/dataset_creator.py
+  cmd: python3 /mlflow/data/repro/dataset_creator/dataset_creator.py
   deps:
   - path: ../raw_datasets
     md5: 93c4072f7d3efd2e0675891d0e6ea8f0.dir
