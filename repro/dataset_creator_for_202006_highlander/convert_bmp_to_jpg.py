@@ -13,3 +13,5 @@ class DatasetCreatorConvertBmpToJpg:
 
             img = cv2.imread(str(p))
             cv2.imwrite(str(p.parent / f"{p.stem}.jpg"), img, [cv2.IMWRITE_JPEG_QUALITY, 100])
+
+        print("DONE: convert_bmp_to_jpg")
