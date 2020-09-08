@@ -16,11 +16,11 @@ run_repro:
 run_debug:
 		docker run -it --rm \
 			--network host \
-			--workdir /app/DVC \
+			--workdir /mlflow/data \
 			--volume ~/.ssh:/tmp/.ssh:ro \
 			--volume ~/.zshrc:/tmp/.zshrc:ro \
 			--volume ~/.tmux.conf:/tmp/.tmux.conf:ro \
-			--volume ~/github/DVC:/app/DVC \
+			--volume ~/github/DVC:/mlflow/data \
 			--name dvc_debug \
 			--hostname dvc_debug \
 			dvc:debug
