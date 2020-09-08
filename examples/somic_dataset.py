@@ -1,14 +1,14 @@
 from pathlib import Path
 
+import albumentations as albu
 import cv2
 import numpy as np
 import pandas as pd
-
 from torch.utils.data import Dataset
 
 
 class SomicDataset(Dataset):
-    def __init__(self, cfg: T.DictConfig, augs: T.Compose) -> None:
+    def __init__(self, cfg: dict, augs: albu.Compose) -> None:
 
         self.augs = augs
         self.base = Path(cfg["base"])
