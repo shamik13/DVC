@@ -3,16 +3,6 @@ Data Version Control
 
 <br>
 
-## Clone Dataset in Your PC
-
-```
-cd docker
-make build
-make run
-```
-
-<br>
-
 ## info.csv
 
 | Variable           | Definition                                    | Type | Key |
@@ -34,6 +24,8 @@ make run
 <br>
 
 ## Query Recipe
+
+<br>
 
 ### for Supervised Learing
 
@@ -73,6 +65,8 @@ dataset:
       - crop_type == 'tobu' &
         supervised == 'test'
 ```
+
+<br>
 
 ### for Unsupervised Learing
 
