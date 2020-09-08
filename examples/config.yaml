@@ -1,0 +1,11 @@
+dataset:
+    base: ../dataset
+    train:
+      query:
+        - is_anomaly_image == 1 &
+          crop_type == 'tobu' &
+          supervised == 'train'
+    test:
+      query:
+        - crop_type == 'tobu' &
+          supervised == 'test'
