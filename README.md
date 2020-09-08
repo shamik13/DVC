@@ -26,7 +26,7 @@ make run
 | product_id         | Timestamp at camera angle 0                   | int  | yyyymmddhhmmssmm |
 | angle              | Camera angle                                  | int  | 0-7 (camera 1), 0-11 (camera 2), 0-4 (camera 3), 0 (camera 4) |
 | raw_stem           | Raw filename without its suffix               | str  | -   |
-| stem               | Renamed filename without its suffix           | str  | [product_id]_[angle] |
+| stem               | Renamed filename without its suffix           | str  | [product_id]_[crop_type]_[angle] |
 | is_anomaly_image   | Does the image have kizu?                     | int  | 0 (No), 1 (Yes) |
 | is_anomaly_product | Does the product have kizu?                   | int  | 0 (No), 1 (Yes) |
 | supervised         | The type of data for supervised learning      | str  | train, test, unuse |
