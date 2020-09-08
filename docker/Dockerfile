@@ -28,6 +28,7 @@ RUN set -xe \
         && ~/miniconda.sh -b -p /opt/conda \
         && rm ~/miniconda.sh \
         && /opt/conda/bin/conda install -y python=$PYTHON_VERSION \
+        && /opt/conda/bin/conda install -y -c conda-forge pyside \
         && /opt/conda/bin/conda clean -ya \
         && pip install --no-cache-dir -r requirements_pip.txt \
         && rm requirements_pip.txt

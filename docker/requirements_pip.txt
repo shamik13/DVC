@@ -1,10 +1,7 @@
 numpy
 pandas
 opencv-python-headless
-labelme==3.16.7
 typing
 black
 flake8
 mypy
-labelme==3.16.7
-pyqt5
