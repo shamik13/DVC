@@ -3,16 +3,6 @@ Data Version Control
 
 <br>
 
-## Clone Dataset in Your PC
-
-```
-cd docker
-make build
-make run
-```
-
-<br>
-
 ## info.csv
 
 | Variable           | Definition                                    | Type | Key |
@@ -30,17 +20,76 @@ make run
 | is_anomaly_image   | Does the image have kizu?                     | int  | 0 (No), 1 (Yes) |
 | is_anomaly_product | Does the product have kizu?                   | int  | 0 (No), 1 (Yes) |
 | supervised         | The type of data for supervised learning      | str  | train, test, unuse |
-| unsupervised       | The type of data for unsupervised learning    | str  | train, test, unuse |
-| semi_supervised    | The type of data for semi-supervised learning | str  | train, test, unuse |
-
-
-I created info.csv with the following points in my mind:
-
-- Split data into train and test based on product id to avoid data leakage
-- Share test product id during supervise, unsupervise, semi-supervise in order to compare quantitatively.
 
 <br>
 
-## How to Use the dataset
+## Query Recipe
 
+<br>
+
+### for Supervised Learing
+
+`/dgx/shared/momo/inoue/somic/dataset/H_tobu_segmentation`
+
+```
+dataset:
+  base: <path_to_dataset_dir>
+  train:
+    query:
+      - is_anomaly_image == 1 &
+        crop_type == 'tobu' &
+        supervised == 'train'
+  test:
+    query:
+      - crop_type == 'tobu' &
+        supervised == 'test'
+```
+
+<br>
+
+`/dgx/shared/momo/inoue/somic/dataset/H_tobu_segmentation_mix`
+
+```
+dataset:
+  base: <path_to_dataset_dir>
+  train:
+    query:
+      - is_anomaly_image == 1 &
+        crop_type == 'tobu' &
+        supervised == 'train'
+     - is_anomaly_product == 0 &
+        crop_type == 'tobu' &
+        supervised == 'train'
+  test:
+    query:
+      - crop_type == 'tobu' &
+        supervised == 'test'
+```
+
+<br>
+
+### for Unsupervised Learing
+
+`/dgx/shared/momo/inoue/somic/dataset/H_tobu_unsupervise` at camera angle 0
+
+```
+dataset:
+  base: <path_to_dataset_dir>
+  train:
+    query:
+      - is_anomaly_product == 1 &
+        is_anomaly_image == 0 &
+        angle == 0 &
+        crop_type == 'tobu' &
+        supervised == 'train'
+      - is_anomaly_product == 0 &
+        angle == 0 &
+        crop_type == 'tobu' &
+        supervised == 'train'
+  test:
+    query:
+      - angle == 0 &
+        crop_type == 'tobu' &
+        supervised == 'test'
+```
 
