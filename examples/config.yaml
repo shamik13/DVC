@@ -1,4 +1,4 @@
-dataset:
+H_tobu_segmentation:
     train:
       base: ../dataset
       query:
@@ -10,3 +10,41 @@ dataset:
       query:
         - crop_type == 'tobu' &
           supervised == 'test'
+
+
+H_tobu_segmentation_mix:
+  train:
+    base: ../dataset
+    query:
+      - is_anomaly_image == 1 &
+        crop_type == 'tobu' &
+        supervised == 'train'
+      - is_anomaly_product == 0 &
+        crop_type == 'tobu' &
+        supervised == 'train'
+  test:
+    base: ../dataset
+    query:
+      - crop_type == 'tobu' &
+        supervised == 'test'
+
+
+H_tobu_unsupervised:
+  train:
+    base: ../dataset
+    query:
+      - is_anomaly_product == 1 &
+        is_anomaly_image == 0 &
+        angle == 0 &
+        crop_type == 'tobu' &
+        supervised == 'train'
+      - is_anomaly_product == 0 &
+        angle == 0 &
+        crop_type == 'tobu' &
+        supervised == 'train'
+  test:
+    base: ../dataset
+    query:
+      - angle == 0 &
+        crop_type == 'tobu' &
+        supervised == 'test'
