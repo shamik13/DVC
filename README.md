@@ -1,9 +1,14 @@
 # DVC
-Data Version Control
+Data Versioned Dataset for SOMIC
 
 <br>
 
-## info.csv
+## 1. Introduction
+This repository provides the dataset for SOMIC project. Users mainly work on `DVC/dataset` directory which stores `images/`, `masks/` and `info.csv`.  All the previous images and masks are in the directories. Users can extract the desired data with `info.csv`, and then use them for training and evaluation. If you want to know how to extract in detail, please see `3. Query Recipes`. This repository is available in DGX `/dgx/shared/momo/inoue/DVC`.
+
+<br>
+
+## 2. info.csv
 
 | Variable           | Definition                                    | Type | Key |
 | :-                 | :-                                            | :-   | :-  |
@@ -23,11 +28,13 @@ Data Version Control
 
 <br>
 
-## Query Recipe
+## 3. Query Recipes
+We prepared the query recipes to extract data for supervised or unsupervised learning. 
+[examples/example.ipynb](https://github.com/TaikiInoue/DVC/blob/master/examples/example.ipynb) is also useful, so check it out.
 
 <br>
 
-### for Supervised Learing
+### 3.1. for Supervised Learing
 
 `/dgx/shared/momo/inoue/somic/dataset/H_tobu_segmentation`
 
@@ -68,7 +75,7 @@ dataset:
 
 <br>
 
-### for Unsupervised Learing
+### 3.2. for Unsupervised Learing
 
 `/dgx/shared/momo/inoue/somic/dataset/H_tobu_unsupervise` at camera angle 0
 
