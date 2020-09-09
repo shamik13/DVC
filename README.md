@@ -1,8 +1,3 @@
-# DVC
-Data Versioned Dataset for SOMIC
-
-<br>
-
 ## 1. Introduction
 This repository provides the dataset for SOMIC project. Users mainly work on `DVC/dataset` directory which stores `images/`, `masks/` and `info.csv`.  All the previous images and masks are in the directories. Users can extract the desired data with `info.csv`, and then use them for training and evaluation. If you want to know how to extract in detail, please see `3. Query Recipes`. This repository is available in DGX `/dgx/shared/momo/inoue/DVC`.
 
@@ -100,3 +95,17 @@ dataset:
         supervised == 'test'
 ```
 
+<br>
+
+## 4. Reproduce a Specific Version Data
+To download a specific version data in your local, run the following commands. Please note that you need to contact Inoue to get `azure_storage_connection_string`.
+
+
+```
+git clone git@github.com:TaikiInoue/DVC.git
+cd DVC
+git checkout <commit_hash>
+dvc remote modify --local blob_storage connection_string <azure_storage_connection_string>
+dvc pull raw_datasets/*.zip.dvc
+dvc repro
+```
