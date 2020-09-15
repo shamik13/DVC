@@ -19,35 +19,35 @@ create_for_202006_highlander:
   - path: repro/create_202006_highlander/create_info_csv.py
     md5: d40ba5b5f27ca8898df1dd2aec57a054
   - path: repro/create_202006_highlander/dataset_creator.py
-    md5: 73f85b608c599d611fbd8b0b3dcd262e
+    md5: 9159babcb0decc8ef0a6a4fc65b62ec0
   - path: repro/create_202006_highlander/extract_zip.py
     md5: 092bd5575fcab9432b605d140ef0386d
   - path: repro/create_202006_highlander/rename_files.py
     md5: 850b9febb5f8598ce2c19d585c2db82a
   outs:
   - path: raw_datasets/20200611_H_tobu_normal
-    md5: 154ee56a786300cc28f5e504b18db303.dir
+    md5: 8e6c221de6e4caadfb34aaaa6a640227.dir
   - path: raw_datasets/20200611_H_ziku_normal
-    md5: cbb5f93eca143f3c9790b670d9dfb70d.dir
+    md5: 281826099ccf42d312816f0827abca11.dir
   - path: raw_datasets/20200618_H_tobu_anomaly
-    md5: 86e3635db2737fa169a3fb6a8dde5eee.dir
+    md5: 50abda8c013ca93ae8173615e884d618.dir
   - path: raw_datasets/20200618_H_ziku_anomaly
-    md5: 9169648c2f44b66867f93e6b89fa88a2.dir
+    md5: 5f01fc14cffd962528947d85614f3346.dir
 merge:
   cmd: python repro/merge/merge.py
   deps:
   - path: raw_datasets/20200611_H_tobu_normal
-    md5: bff9285339e6291a7926c877cfd45318.dir
+    md5: 234166d9f8ac9f87d12c45e6b1844773.dir
   - path: raw_datasets/20200611_H_ziku_normal
-    md5: 9a6cdd74ea1cd55937797cb9e7ed2474.dir
+    md5: 0622337747293e9f6b9c553a9963afcb.dir
   - path: raw_datasets/20200618_H_tobu_anomaly
-    md5: 796bb8cea3d002c1f4a042db5baa9407.dir
+    md5: 7626a992c7113c1509a8a0d1579e19a3.dir
   - path: raw_datasets/20200618_H_ziku_anomaly
-    md5: b6401c577fef959f1ff8101857a6930c.dir
+    md5: 0a10839608f1ea6b5bf126a00b62d340.dir
   outs:
   - path: dataset/images
     md5: f0eb71adb3f4fdd9cb18d951402826a7.dir
   - path: dataset/info.csv
-    md5: 6ba7953128bd74b9f3e986d62fd61bd7
+    md5: d7b4b2d9974ac9d8edf7601c2390fadf
   - path: dataset/masks
     md5: b4f04d695a7ca7f71b5926df7f257748.dir

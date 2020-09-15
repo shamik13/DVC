@@ -31,7 +31,7 @@ if __name__ == "__main__":
 
     base = Path(".")
 
-    for zip_path in base.glob("raw_datasets/202006*_H_*_*.zip"):
+    for zip_path in base.glob("raw_datasets/*.zip"):
 
         raw_dataset_dir = zip_path.parent / zip_path.stem
         dataset_dir = base / "dataset"
