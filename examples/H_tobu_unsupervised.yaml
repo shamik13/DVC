@@ -1,0 +1,18 @@
+train:
+  base: ../dataset
+  query:
+  - is_anomaly_product == 1 &
+    is_anomaly_image == 0 &
+    angle == 0 &
+    crop_type == 'tobu' &
+    supervised == 'train'
+  - is_anomaly_product == 0 &
+    angle == 0 &
+    crop_type == 'tobu' &
+    supervised == 'train'
+test:
+  base: ../dataset
+  query:
+    - crop_type == 'tobu' &
+      angle == 0 &
+      supervised == 'test'
