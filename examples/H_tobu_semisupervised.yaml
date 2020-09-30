@@ -1,13 +1,17 @@
-train:
+labeled_train:
   base: ../dataset
   query:
     - is_anomaly_image == 1 &
       crop_type == 'tobu' &
-      raw_product_id < 50 &
-      supervised == 'train'
-    - is_anomaly_product == 0 &
+      supervised == 'train' &
+      raw_product_id < 50
+unlabeled_train:
+  base: ../dataset
+  query:
+    - is_anomaly_image == 1 &
       crop_type == 'tobu' &
-      supervised == 'train'
+      supervised == 'train' &
+      raw_product_id >= 50
 test:
   base: ../dataset
   query:
