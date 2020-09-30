@@ -59,7 +59,7 @@ dataset:
       - is_anomaly_image == 1 &
         crop_type == 'tobu' &
         supervised == 'train'
-     - is_anomaly_product == 0 &
+      - is_anomaly_product == 0 &
         crop_type == 'tobu' &
         supervised == 'train'
   test:
