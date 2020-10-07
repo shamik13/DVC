@@ -34,7 +34,7 @@ The images with rust are deprecated for train and test.
 
 ### ■ Examples
 
-Still working... Please wait a day...
+Still working... Please wait for a few days...
 
 | kizu_dakon                 | kizu_ware                  | kizu_zairyou               |
 | --                         | --                         | --                         |
@@ -54,7 +54,7 @@ Still working... Please wait a day...
 
 ## 3. info.csv
 
-Still working... Please wait a day...
+Still working... Please wait for a few days...
 
 | Variable           | Description                                   | Type | Key |
 | :-                 | :-                                            | :-   | :-  |
