@@ -3,7 +3,38 @@ This repository provides the dataset for SOMIC project. Users mainly work on `DV
 
 <br>
 
-## 2. info.csv
+
+## 2. Label and Flag
+This dataset has two type of annotation, `label` and `flag`. `label` is the annotation assigned to each pixel, and `flag` is the annotation assigned to each image.
+The following tables are description about `label` and `flag`
+
+
+| Label Name     | Description |
+| --             | --          |
+| kizu_dakon     | カシメ部割れ, 切断面スジ, カシメ段ヒケ |
+| kizu_ware      | 打痕, カシメ段差, カス打ち込み, カス打ち残り, 異物打ち込み, カシメ内径キズ, 内径キズ |
+| kizu_zairyou   | 材料キズ |
+| ignore_shallow | The kizu is shallow and can be ignored |
+| ignore_cutting | The kizu will be removed in a later process |
+| ignore_oil     | The oil stain failed to be wiped off |
+
+<br>
+
+| Flag Name | Description |
+| --        | --          |
+| sabi      | The image with rust (錆 sabi) |
+| unuse     | The deprecated image for train and test |
+
+The image with rust rarely appear in production phase, because the product is created and then take a image imidiately.
+However, the products put in a laboratory for a week. That's why the products are getting rust.
+The images with rust are deprecated for train and test.
+
+
+<br>
+
+## 3. info.csv
+
+Still working... Please wait a day...
 
 | Variable           | Definition                                    | Type | Key |
 | :-                 | :-                                            | :-   | :-  |
@@ -24,7 +55,7 @@ This repository provides the dataset for SOMIC project. Users mainly work on `DV
 <br>
 
 ## 3. Query Recipes
-We prepared the query recipes to extract data for supervised or unsupervised learning. 
+We prepared the query recipes to extract data for supervised or unsupervised learning.
 [examples/example.ipynb](https://github.com/TaikiInoue/DVC/blob/master/examples/example.ipynb) is also useful, so check it out.
 
 <br>
