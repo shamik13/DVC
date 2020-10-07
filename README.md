@@ -36,15 +36,15 @@ The images with rust are deprecated for train and test.
 
 Still working... Please wait for a few days...
 
-| kizu_dakon                 | kizu_ware                  | kizu_zairyou               |
+| label: kizu_dakon          | label: kizu_ware           | label: kizu_zairyou        |
 | --                         | --                         | --                         |
 | <img height=300 width=300> | <img height=300 width=300> | <img height=300 width=300> |
 
-| ignore_shallow             | ignore_cutting             | ignore_oil                 |
+| label: ignore_shallow      | label: ignore_cutting      | label: ignore_oil          |
 | --                         | --                         | --                         |
 | <img height=300 width=300> | <img height=300 width=300> | <img height=300 width=300> |
 
-| sabi                       | unuse                      |                            |
+| flag: sabi                 | flag: unuse                |                            |
 | --                         | --                         | --                         |
 | <img height=300 width=300> | <img height=300 width=300> | <img height=300 width=300> |
 
