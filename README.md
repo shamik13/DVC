@@ -6,11 +6,12 @@ This repository provides the dataset for SOMIC project. Users mainly work on `DV
 
 ## 2. Label and Flag
 This dataset has two type of annotation, `label` and `flag`. `label` is the annotation assigned to each pixel, and `flag` is the annotation assigned to each image.
-The following tables are description about `label` and `flag`
+The following tables are description about `label` and `flag`.
 
+<br>
 
 | Label Name     | Description |
-| --             | --          |
+| :-             | :-          |
 | kizu_dakon     | カシメ部割れ, 切断面スジ, カシメ段ヒケ |
 | kizu_ware      | 打痕, カシメ段差, カス打ち込み, カス打ち残り, 異物打ち込み, カシメ内径キズ, 内径キズ |
 | kizu_zairyou   | 材料キズ |
@@ -21,7 +22,7 @@ The following tables are description about `label` and `flag`
 <br>
 
 | Flag Name | Description |
-| --        | --          |
+| :-        | :-          |
 | sabi      | The image with rust (錆 sabi) |
 | unuse     | The deprecated image for train and test |
 
@@ -29,14 +30,33 @@ The image with rust rarely appear in production phase, because the product is cr
 However, the products put in a laboratory for a week. That's why the products are getting rust.
 The images with rust are deprecated for train and test.
 
+<br>
+
+### ■ Examples
+
+Still working... Please wait a day...
+
+| kizu_dakon                 | kizu_ware                  | kizu_zairyou               |
+| --                         | --                         | --                         |
+| <img height=300 width=300> | <img height=300 width=300> | <img height=300 width=300> |
+
+| ignore_shallow             | ignore_cutting             | ignore_oil                 |
+| --                         | --                         | --                         |
+| <img height=300 width=300> | <img height=300 width=300> | <img height=300 width=300> |
+
+| sabi                       | unuse                      |                            |
+| --                         | --                         | --                         |
+| <img height=300 width=300> | <img height=300 width=300> | <img height=300 width=300> |
+
 
 <br>
+
 
 ## 3. info.csv
 
 Still working... Please wait a day...
 
-| Variable           | Definition                                    | Type | Key |
+| Variable           | Description                                   | Type | Key |
 | :-                 | :-                                            | :-   | :-  |
 | product_type       | The type of product                           | str  | B, C, H, K, RAV4, Y1J, YJA |
 | camera             | The imaging device                            | int  | 1 (end of body), 2 (whole), 3 (inside of head), 4 (top of head) |
