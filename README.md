@@ -74,13 +74,13 @@ Still working... Please wait for a few days...
 
 <br>
 
-## 3. Query Recipes
+## 4. Query Recipes
 We prepared the query recipes to extract data for supervised or unsupervised learning.
 [examples/example.ipynb](https://github.com/TaikiInoue/DVC/blob/master/examples/example.ipynb) is also useful, so check it out.
 
 <br>
 
-### 3.1. for Supervised Learing
+### 4.1. for Supervised Learing
 
 `/dgx/shared/momo/inoue/somic/dataset/H_tobu_segmentation`
 
@@ -121,7 +121,7 @@ dataset:
 
 <br>
 
-### 3.2. for Unsupervised Learing
+### 4.2. for Unsupervised Learing
 
 `/dgx/shared/momo/inoue/somic/dataset/H_tobu_unsupervise` at camera angle 0
 
@@ -148,7 +148,7 @@ dataset:
 
 <br>
 
-## 4. Reproduce a Specific Version Data
+## 5. Reproduce a Specific Version Data
 To download a specific version data in your local, run the following commands. Please note that you need to contact Inoue to get `azure_storage_connection_string`.
 
 
