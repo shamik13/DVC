@@ -1,6 +1,9 @@
+import json
+import random
 from pathlib import Path
 
 import cv2
+import numpy as np
 import pandas as pd
 
 
@@ -40,16 +43,23 @@ class ReproCreateInfoCSV:
         df = self._create_base_dataframe()
         df = self._add_angle_and_product_id(df)
         df = self._add_stem(df)
-        df = self._add_has_label_and_has_flag(df)
+        df = self._add_has_label(df)
+        df = self._add_has_flag(df)
         df = self._add_is_anomaly_image(df)
+        df = self._add_is_anomaly_product(df)
+        df = self._add_data_block_id(df)
 
     def _create_base_dataframe(self) -> pd.DataFrame:
 
+        # raw_stem is [raw_product_id]_[timestamp (yyyymmddhhmmssmm)]
+        # Example: 301_20200825125742544
         di = {"raw_stem": [p.stem for p in self.raw_dataset_dir.glob("color_images/*.jpg")]}
         df = pd.DataFrame(di)
         df["raw_product_id"] = df["raw_stem"].apply(lambda x: int(x.split("_")[0]))
         df["timestamp"] = df["raw_stem"].apply(lambda x: int(x.split("_")[1]))
 
+        # Folder name of raw_dataset is [received_date]_[product_type]_[camera_id]_[normal or anomaly]
+        # Example: 20201005_H_2_anomaly
         received_date, product_type, camera_id, _ = self.raw_dataset_dir.stem.split("_")
         df["received_date"] = int(received_date)
         df["product_type"] = product_type
@@ -60,7 +70,7 @@ class ReproCreateInfoCSV:
 
     def _add_angle_and_product_id(self, df: pd.DataFrame) -> pd.DataFrame:
 
-        df = df.sort_values(by=["product", "timestamp"], ascending=1)
+        df = df.sort_values(by=["raw_product_id", "timestamp"], ascending=1)
         df["angle"] = -1
         df["product_id"] = -1
         for raw_product_id in df["raw_product_id"].unique():
@@ -91,7 +101,7 @@ class ReproCreateInfoCSV:
 
         return df
 
-    def _add_has_label_and_has_flag(self, df: pd.DataFrame) -> pd.DataFrame:
+    def _add_has_label(self, df: pd.DataFrame) -> pd.DataFrame:
 
         df["has_kizu_dakon"] = 0
         df["has_kizu_ware"] = 0
@@ -119,6 +129,22 @@ class ReproCreateInfoCSV:
 
         return df
 
+    def _add_has_flag(self, df: pd.DataFrame) -> pd.DataFrame:
+
+        df["has_sabi"] = -1
+        df["has_unuse"] = -1
+        for raw_stem in df["raw_stem"]:
+            with open(self.raw_dataset_dir / f"jsons/{raw_stem}.json") as f:
+                flag = json.load(f)["flags"]
+                sabi = flag["sabi"]
+                unuse = flag["unuse"]
+
+            expr = df["raw_stem"] == raw_stem
+            df.loc[expr, "has_sabi"] = sabi
+            df.loc[expr, "has_unuse"] = unuse
+
+        return df
+
     def _add_is_anomaly_image(self, df: pd.DataFrame) -> pd.DataFrame:
 
         df["is_anomaly_image"] = 0
@@ -136,5 +162,20 @@ class ReproCreateInfoCSV:
             expr = df["product"] == product
             df.loc[expr, "is_anomaly_product"] = df.loc[expr, "is_anomaly_image"].sum()
         df.loc[df["is_anomaly_product"] != 0, "is_anomaly_product"] = 1
+
+        return df
+
+    def _add_data_block_id(self, df: pd.DataFrame) -> pd.DataFrame:
+
+        # Split the dataset into ten blocks based on product id
+        # A seed value is specified to preserve the reproducibility of the split
+        product_id_list = df["product_id"].unique()
+        random.Random(0).shuffle(product_id_list)
+        ten_blocks = np.array_split(product_id_list, 10)
+
+        df["data_block_id"] = -1
+        for block_id, block in enumerate(ten_blocks):
+            for product_id in block:
+                df.loc[df["product_id"] == product_id, "data_block_id"] = block_id
 
         return df

@@ -6,7 +6,7 @@ class ReproUnzip:
 
     zip_path: Path
 
-    def extract_zip(self):
+    def unzip(self):
 
         with ZipFile(self.zip_path, "r") as f:
             f.extractall(self.zip_path.parent)

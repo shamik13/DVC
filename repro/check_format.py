@@ -1,50 +1,112 @@
+import json
+import re
+import sys
+from pathlib import Path
+
+import numpy as np
+
+
 class ReproCheckFormat:
 
     """
-    Chweck the format of a raw dataset
+    Check the format of a raw dataset
     """
 
-    def check_format(self):
-        self._check_data_structure()
-        self._check_product_id()
-        self._check_label_name()
-        self._check_flag_name()
+    raw_dataset_dir: Path
+
+    def check_format(self) -> None:
+        self._check_naming_convention()
+        self._check_num_images()
+        self._check_label_and_flag()
         self._check_camera_angle()
 
-    def _check_naming_convention(self):
+    def _check_naming_convention(self) -> None:
 
         """
-        [0-9]+_[0-9]{4}_[0-9]{4}_[0-9]{8}
+        Predefined naming convention without suffix is [product_id]_[timestamp (yyyymmddhhmmssmmm)]
+        Pattern: [0-9]+_[0-9]{16}
+        Example: 301_20200825125742544
         """
-        pass
 
-    def _check_data_structure(self):
+        for color_type in ["color", "gray"]:
+            for suffix in ["bmp", "jpg"]:
+
+                pattern = re.compile(r"\d+_\d{17}." + f"{suffix}")
+                for p in self.raw_dataset_dir.glob(f"{color_type}_images/*.{suffix}"):
+                    if not pattern.match(p.name):
+                        sys.exit(1)
+
+    def _check_num_images(self) -> None:
 
         """
+        Check that the number of images is same
+        between color_images/*.bmp, color_images/*.jpg, gray_images/*.bmp and gray_images/*.jpg
+
         ├── color_images
         |   ├── *.bmp
         |   └── *.jpg
-        ├── color_images
+        ├── gray_images
         |   ├── *.bmp
         |   └── *.jpg
-        ├── jsons
-        |   └── *.json
-        └── markings
-            └── *.bmp
+        └── jsons
+            └── *.json
         """
-        pass
 
-    def _check_product_id(self):
-        pass
+        num_images_list = []
+        num_images_list.append(len([p for p in self.raw_dataset_dir.glob("color_images/*.bmp")]))
+        num_images_list.append(len([p for p in self.raw_dataset_dir.glob("color_images/*.jpg")]))
+        num_images_list.append(len([p for p in self.raw_dataset_dir.glob("gray_images/*.bmp")]))
+        num_images_list.append(len([p for p in self.raw_dataset_dir.glob("gray_images/*.jpg")]))
 
-    def _check_label_name(self):
-        pass
+        if len(set(num_images_list)) != 1:
+            print("Error: _check_num_images")
+            sys.exit(1)
 
-    def _check_flag_name(self):
-        pass
+    def _check_label_and_flag(self) -> None:
 
-    def _check_camera_angle(self):
-        pass
+        """
+        Check that labels and flags are in the predefined names
+        """
 
-    def _exit_process(self):
-        pass
+        predefined_labels = [
+            "kizu_dakon",
+            "kizu_ware",
+            "kizu_zairyou",
+            "ignore_shallow",
+            "ignore_cutting",
+            "ignore_oil",
+        ]
+        predefined_flags = ["sabi", "unuse"]
+
+        for p in self.raw_dataset_dir.glob("jsons/*.json"):
+            with open(p) as f:
+                annotaiton = json.load(f)
+                label_list = annotaiton["shapes"]
+                flag_dict = annotaiton["flags"]
+
+            for label in label_list:
+                label_name = label["label"]
+                if label_name not in predefined_labels:
+                    sys.exit(1)
+
+            for flag_name in flag_dict.keys():
+                if flag_name not in predefined_flags:
+                    sys.exit(1)
+
+    def _check_camera_angle(self) -> None:
+
+        """
+        Check that the camera angle is not too many or too few
+        """
+
+        for color_type in ["color", "gray"]:
+            for suffix in ["bmp", "jpg"]:
+
+                # p.stem is [raw_product_id]_[timestamp (yyyymmddhhmmssmm)]
+                product_id_list = []
+                for p in self.raw_dataset_dir.glob(f"{color_type}_images/*.{suffix}"):
+                    product_id_list.append(p.stem.split("_")[0])
+
+                _, counts = np.unique(product_id_list, return_counts=True)
+                if len(set(counts)) != 1:
+                    sys.exit(1)

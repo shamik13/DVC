@@ -8,7 +8,7 @@ class ReproMerge:
     raw_dataset_dir: Path
     dataset_dir: Path
 
-    def merge_raw_datasets(self):
+    def merge(self):
 
         self._merge_files()
         self._merge_info_csv()

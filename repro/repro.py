@@ -1,11 +1,11 @@
 from pathlib import Path
 
-from .check_format import ReproCheckFormat
-from .create_info_csv import ReproCreateInfoCSV
-from .create_mask import ReproCreateMask
-from .merge import ReproMerge
-from .rename import ReproRename
-from .unzip import ReproUnzip
+from check_format import ReproCheckFormat
+from create_info_csv import ReproCreateInfoCSV
+from create_mask import ReproCreateMask
+from merge import ReproMerge
+from rename import ReproRename
+from unzip import ReproUnzip
 
 
 class Repro(
@@ -16,7 +16,7 @@ class Repro(
         """
         Args:
             raw_dataset_dir (Path): path to unzipped directory
-            dataset_dir (Path): path to dataset directory for DL models
+            dataset_dir (Path): path to dataset directory
             zip_path (Path): path to zip file
         """
 
@@ -27,9 +27,9 @@ class Repro(
 
 if __name__ == "__main__":
 
-    base = Path("/dgx/shared/nas/inoue/DVC")
+    base = Path("/dgx/github/DVC")
 
-    for zip_path in base.glob("raw_datasets/*.zip"):
+    for zip_path in base.glob("raw_datasets/*_anomaly.zip"):
 
         raw_dataset_dir = zip_path.parent / zip_path.stem
         dataset_dir = base / "dataset"
@@ -38,7 +38,8 @@ if __name__ == "__main__":
         repro = Repro(raw_dataset_dir, dataset_dir, zip_path)
         repro.unzip()
         repro.check_format()
+        repro.rename_to_color_jpg_filename()
         repro.create_mask()
         repro.create_info_csv()
-        repro.rename()
+        repro.rename_raw_stem_to_stem()
         repro.merge()
