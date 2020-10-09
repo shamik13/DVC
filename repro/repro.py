@@ -3,13 +3,20 @@ from pathlib import Path
 from check_format import ReproCheckFormat
 from create_info_csv import ReproCreateInfoCSV
 from create_mask import ReproCreateMask
+from crop import ReproCrop
 from merge import ReproMerge
 from rename import ReproRename
 from unzip import ReproUnzip
 
 
 class Repro(
-    ReproCheckFormat, ReproCreateInfoCSV, ReproCreateMask, ReproMerge, ReproRename, ReproUnzip
+    ReproCheckFormat,
+    ReproCreateInfoCSV,
+    ReproCreateMask,
+    ReproCrop,
+    ReproMerge,
+    ReproRename,
+    ReproUnzip,
 ):
     def __init__(self, raw_dataset_dir: Path, dataset_dir: Path, zip_path: Path):
 

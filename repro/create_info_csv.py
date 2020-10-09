@@ -48,6 +48,7 @@ class ReproCreateInfoCSV:
         df = self._add_is_anomaly_image(df)
         df = self._add_is_anomaly_product(df)
         df = self._add_data_block_id(df)
+        df.to_csv(self.raw_dataset_dir / "info.csv", index=False)
 
     def _create_base_dataframe(self) -> pd.DataFrame:
 
@@ -70,24 +71,25 @@ class ReproCreateInfoCSV:
 
     def _add_angle_and_product_id(self, df: pd.DataFrame) -> pd.DataFrame:
 
-        df = df.sort_values(by=["raw_product_id", "timestamp"], ascending=1)
-        df["angle"] = -1
+        df = df.sort_values(by=["raw_product_id", "timestamp"], ascending=True)
+        df["camera_angle"] = -1
         df["product_id"] = -1
         for raw_product_id in df["raw_product_id"].unique():
             expr = df["raw_product_id"] == raw_product_id
 
-            # The image with youngest timestamp is camera angle 0
+            # The image with the youngest timestamp in a product is always camera angle 0
             for angle, row in enumerate(df[expr].index):
-                df.loc[row, "angle"] = angle
+                df.loc[row, "camera_angle"] = angle
 
             # product_id is timestamp at camera angle 0
-            df.loc[expr, "product_id"] = df.loc[expr & (df["angle"] == 0), "timestamp"].item()
+            product_id = df.loc[expr & (df["camera_angle"] == 0), "timestamp"].item()
+            df.loc[expr, "product_id"] = product_id
 
         return df
 
     def _add_stem(self, df: pd.DataFrame) -> pd.DataFrame:
 
-        # stem is [product_id]_[camera_id]_[camera_angle]_[crop_type]_[color_type]
+        # stem is [product_id]_[camera_id]_[camera_angle]_[crop_type]
         df["stem"] = ""
         df["stem"] += df["product_id"].apply(lambda x: str(x))
         df["stem"] += "_"
@@ -96,8 +98,6 @@ class ReproCreateInfoCSV:
         df["stem"] += df["camera_angle"].apply(lambda x: str(x))
         df["stem"] += "_"
         df["stem"] += df["crop_type"]
-        df["stem"] += "_"
-        df["stem"] += df["color_type"]
 
         return df
 
@@ -114,17 +114,17 @@ class ReproCreateInfoCSV:
             mask = cv2.imread(str(self.raw_dataset_dir / f"masks/{raw_stem}.png"))
             expr = df["raw_stem"] == raw_stem
 
-            if sum(mask == 1) != 0:
+            if np.sum(mask == 1) != 0:
                 df.loc[expr, "has_kizu_dakon"] = 1
-            elif sum(mask == 2) != 0:
+            elif np.sum(mask == 2) != 0:
                 df.loc[expr, "has_kizu_ware"] = 1
-            elif sum(mask == 3) != 0:
+            elif np.sum(mask == 3) != 0:
                 df.loc[expr, "has_kizu_zairyou"] = 1
-            elif sum(mask == 4) != 0:
+            elif np.sum(mask == 4) != 0:
                 df.loc[expr, "has_ignore_shallow"] = 1
-            elif sum(mask == 5) != 0:
+            elif np.sum(mask == 5) != 0:
                 df.loc[expr, "has_ignore_cutting"] = 1
-            elif sum(mask == 6) != 0:
+            elif np.sum(mask == 6) != 0:
                 df.loc[expr, "has_ignore_oil"] = 1
 
         return df
@@ -167,14 +167,14 @@ class ReproCreateInfoCSV:
 
     def _add_data_block_id(self, df: pd.DataFrame) -> pd.DataFrame:
 
-        # Split the dataset into ten blocks based on product id
+        # Split the dataset into hundred blocks based on product_id
         # A seed value is specified to preserve the reproducibility of the split
         product_id_list = df["product_id"].unique()
         random.Random(0).shuffle(product_id_list)
-        ten_blocks = np.array_split(product_id_list, 10)
+        hundred_blocks = np.array_split(product_id_list, 10)
 
         df["data_block_id"] = -1
-        for block_id, block in enumerate(ten_blocks):
+        for block_id, block in enumerate(hundred_blocks):
             for product_id in block:
                 df.loc[df["product_id"] == product_id, "data_block_id"] = block_id
 
