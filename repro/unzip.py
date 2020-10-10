@@ -10,3 +10,5 @@ class ReproUnzip:
 
         with ZipFile(self.zip_path, "r") as f:
             f.extractall(self.zip_path.parent)
+
+        print("DONE: unzip")

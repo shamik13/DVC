@@ -40,7 +40,9 @@ class ReproRename:
             if json_path.is_file():
                 json_path.rename(self.raw_dataset_dir / f"jsons/{color_jpg.stem}.json")
 
-    def rename_raw_stem_to_stem(self) -> None:
+        print("DONE: rename_to_color_jpg_filename")
+
+    def rename_old_stem_to_new_stem(self) -> None:
 
         df = pd.read_csv(self.raw_dataset_dir / "info.csv")
         for i in df.index:
@@ -48,22 +50,24 @@ class ReproRename:
             old_stem = df.loc[i, "raw_stem"]
             new_stem = df.loc[i, "stem"]
 
-            old_img_path = self.raw_dataset_dir / f"images/{old_stem}.bmp"
-            new_img_path = self.raw_dataset_dir / f"images/{new_stem}.bmp"
+            old_path_list = []
+            old_path_list.append(self.raw_dataset_dir / f"color_images/{old_stem}.bmp")
+            old_path_list.append(self.raw_dataset_dir / f"color_images/{old_stem}.jpg")
+            old_path_list.append(self.raw_dataset_dir / f"gray_images/{old_stem}.bmp")
+            old_path_list.append(self.raw_dataset_dir / f"gray_images/{old_stem}.jpg")
+            old_path_list.append(self.raw_dataset_dir / f"masks/{old_stem}.png")
+            old_path_list.append(self.raw_dataset_dir / f"jsons/{old_stem}.json")
 
-            old_mask_path = self.raw_dataset_dir / f"masks/{old_stem}.png"
-            new_mask_path = self.raw_dataset_dir / f"masks/{new_stem}.png"
+            new_path_list = []
+            new_path_list.append(self.raw_dataset_dir / f"color_images/{new_stem}.bmp")
+            new_path_list.append(self.raw_dataset_dir / f"color_images/{new_stem}.jpg")
+            new_path_list.append(self.raw_dataset_dir / f"gray_images/{new_stem}.bmp")
+            new_path_list.append(self.raw_dataset_dir / f"gray_images/{new_stem}.jpg")
+            new_path_list.append(self.raw_dataset_dir / f"masks/{new_stem}.png")
+            new_path_list.append(self.raw_dataset_dir / f"jsons/{new_stem}.json")
 
-            old_json_path = self.raw_dataset_dir / f"jsons/{old_stem}.json"
-            new_json_path = self.raw_dataset_dir / f"jsons/{new_stem}.json"
+            for old_path, new_path in zip(old_path_list, new_path_list):
+                if old_path.is_file():
+                    old_path.rename(new_path)
 
-            if old_img_path.is_file():
-                old_img_path.rename(new_img_path)
-
-            if old_mask_path.is_file():
-                old_mask_path.rename(new_mask_path)
-
-            if old_json_path.is_file():
-                old_json_path.rename(new_json_path)
-
-        print("DONE: rename_files")
+        print("DONE: rename_old_stem_to_new_stem")

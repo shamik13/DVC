@@ -3,7 +3,7 @@ from pathlib import Path
 from check_format import ReproCheckFormat
 from create_info_csv import ReproCreateInfoCSV
 from create_mask import ReproCreateMask
-from crop import ReproCrop
+from crop_tobu_and_ziku import ReproCropTobuAndZiku
 from merge import ReproMerge
 from rename import ReproRename
 from unzip import ReproUnzip
@@ -13,7 +13,7 @@ class Repro(
     ReproCheckFormat,
     ReproCreateInfoCSV,
     ReproCreateMask,
-    ReproCrop,
+    ReproCropTobuAndZiku,
     ReproMerge,
     ReproRename,
     ReproUnzip,
@@ -48,5 +48,6 @@ if __name__ == "__main__":
         repro.rename_to_color_jpg_filename()
         repro.create_mask()
         repro.create_info_csv()
-        repro.rename_raw_stem_to_stem()
+        repro.rename_old_stem_to_new_stem()
+        repro.crop_tobu_and_ziku()
         repro.merge()

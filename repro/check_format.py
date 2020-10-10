@@ -20,6 +20,8 @@ class ReproCheckFormat:
         self._check_label_and_flag()
         self._check_camera_angle()
 
+        print("DONE: check_format")
+
     def _check_naming_convention(self) -> None:
 
         """

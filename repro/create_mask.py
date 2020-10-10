@@ -3,9 +3,10 @@ import math
 from pathlib import Path
 
 import cv2
-import labelme
 import numpy as np
-from PIL import Image, ImageDraw
+import PIL.Image
+import PIL.ImageDraw
+from PIL.Image import Image
 
 
 class ReproCreateMask:
@@ -17,6 +18,7 @@ class ReproCreateMask:
         Path(self.raw_dataset_dir / "masks").mkdir(parents=True, exist_ok=True)
         self._create_anomaly_mask()
         self._create_normal_mask()
+
         print("DONE: create_mask")
 
     def _create_anomaly_mask(self):
@@ -34,8 +36,8 @@ class ReproCreateMask:
             with open(p) as f:
                 mask_info = json.load(f)
 
-            mask = self._convert_json_to_mask(mask_info, label_to_id)
-            labelme.utils.lblsave(self.raw_dataset_dir / f"masks/{p.stem}.png", mask)
+            mask = self._create_mask_from_json(mask_info, label_to_id)
+            mask.save(self.raw_dataset_dir / f"masks/{p.stem}.png")
 
     def _create_normal_mask(self):
 
@@ -48,17 +50,18 @@ class ReproCreateMask:
                 mask = np.zeros(img.shape, dtype=np.uint8)
                 cv2.imwrite(str(mask_path), mask)
 
-    def _json_to_mask(
-        self, mask_info: dict, label_to_id: dict, line_width: int = 10, point_size: int = 5
-    ) -> np.ndarray:
+    def _create_mask_from_json(self, mask_info: dict, label_to_id: dict) -> Image:
 
         """
-        labelme.utils.shapes_to_label and
-        was used as a reference to implement this method.
-        The
+        Create a mask from json file
 
-        [reference]
-        https://github.com/wkentaro/labelme/blob/master/labelme/utils/shape.py
+        Args:
+            mask_info (dict): Mask information from the json file
+            label_to_id (dict): Dictionary to convert label name to label id
+
+        Rreference:
+            - https://github.com/wkentaro/labelme/blob/master/labelme/utils/shape.py
+            - https://github.com/wkentaro/labelme/blob/master/labelme/utils/_io.py
         """
 
         height = int(mask_info["imageHeight"])
@@ -71,8 +74,8 @@ class ReproCreateMask:
             shape_type = polygon_info.get("shape_type", None)
 
             bool_array = np.zeros((height, width), dtype=np.int32)
-            bool_array = Image.fromarray(bool_array)
-            draw = ImageDraw.Draw(bool_array)
+            bool_array = PIL.Image.fromarray(bool_array)
+            draw = PIL.ImageDraw.Draw(bool_array)
             xy = [tuple(point) for point in points]
 
             if shape_type == "circle":
@@ -85,13 +88,13 @@ class ReproCreateMask:
                 draw.rectangle(xy, outline=1, fill=1)
             elif shape_type == "line":
                 assert len(xy) == 2, "Shape of shape_type=line must have 2 points"
-                draw.line(xy=xy, fill=1, width=line_width)
+                draw.line(xy=xy, fill=1, width=10)
             elif shape_type == "linestrip":
-                draw.line(xy=xy, fill=1, width=line_width)
+                draw.line(xy=xy, fill=1, width=10)
             elif shape_type == "point":
                 assert len(xy) == 1, "Shape of shape_type=point must have 1 points"
                 cx, cy = xy[0]
-                r = point_size
+                r = 5
                 draw.ellipse([cx - r, cy - r, cx + r, cy + r], outline=1, fill=1)
             else:
                 assert len(xy) > 2, "Polygon must have points more than 2"
@@ -100,4 +103,4 @@ class ReproCreateMask:
             bool_array = np.array(bool_array, dtype=bool)
             mask[bool_array] = label_to_id[label]
 
-        return mask
+        return PIL.Image.fromarray(mask.astype(np.uint8), mode="P")

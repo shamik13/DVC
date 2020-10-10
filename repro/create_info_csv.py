@@ -50,9 +50,11 @@ class ReproCreateInfoCSV:
         df = self._add_data_block_id(df)
         df.to_csv(self.raw_dataset_dir / "info.csv", index=False)
 
+        print("DONE: create_info_csv")
+
     def _create_base_dataframe(self) -> pd.DataFrame:
 
-        # raw_stem is [raw_product_id]_[timestamp (yyyymmddhhmmssmm)]
+        # raw_stem is [raw_product_id]_[timestamp (yyyymmddhhmmssmmm)]
         # Example: 301_20200825125742544
         di = {"raw_stem": [p.stem for p in self.raw_dataset_dir.glob("color_images/*.jpg")]}
         df = pd.DataFrame(di)
@@ -116,33 +118,39 @@ class ReproCreateInfoCSV:
 
             if np.sum(mask == 1) != 0:
                 df.loc[expr, "has_kizu_dakon"] = 1
-            elif np.sum(mask == 2) != 0:
+            if np.sum(mask == 2) != 0:
                 df.loc[expr, "has_kizu_ware"] = 1
-            elif np.sum(mask == 3) != 0:
+            if np.sum(mask == 3) != 0:
                 df.loc[expr, "has_kizu_zairyou"] = 1
-            elif np.sum(mask == 4) != 0:
+            if np.sum(mask == 4) != 0:
                 df.loc[expr, "has_ignore_shallow"] = 1
-            elif np.sum(mask == 5) != 0:
+            if np.sum(mask == 5) != 0:
                 df.loc[expr, "has_ignore_cutting"] = 1
-            elif np.sum(mask == 6) != 0:
+            if np.sum(mask == 6) != 0:
                 df.loc[expr, "has_ignore_oil"] = 1
 
         return df
 
     def _add_has_flag(self, df: pd.DataFrame) -> pd.DataFrame:
 
-        df["has_sabi"] = -1
-        df["has_unuse"] = -1
+        df["has_sabi"] = False
+        df["has_unuse"] = False
         for raw_stem in df["raw_stem"]:
-            with open(self.raw_dataset_dir / f"jsons/{raw_stem}.json") as f:
-                flag = json.load(f)["flags"]
-                sabi = flag["sabi"]
-                unuse = flag["unuse"]
+            json_path = self.raw_dataset_dir / f"jsons/{raw_stem}.json"
 
-            expr = df["raw_stem"] == raw_stem
-            df.loc[expr, "has_sabi"] = sabi
-            df.loc[expr, "has_unuse"] = unuse
+            if json_path.is_file():
+                with open(json_path) as f:
+                    flag = json.load(f)["flags"]
+                    sabi = flag["sabi"]
+                    unuse = flag["unuse"]
 
+                expr = df["raw_stem"] == raw_stem
+                df.loc[expr, "has_sabi"] = sabi
+                df.loc[expr, "has_unuse"] = unuse
+
+        # Covert False into 0 or True into 1
+        df["has_sabi"] = df["has_sabi"].apply(lambda x: 1 if x else 0)
+        df["has_unuse"] = df["has_unuse"].apply(lambda x: 1 if x else 0)
         return df
 
     def _add_is_anomaly_image(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -158,8 +166,8 @@ class ReproCreateInfoCSV:
     def _add_is_anomaly_product(self, df: pd.DataFrame) -> pd.DataFrame:
 
         df["is_anomaly_product"] = -1
-        for product in df["product"].unique():
-            expr = df["product"] == product
+        for product_id in df["product_id"].unique():
+            expr = df["product_id"] == product_id
             df.loc[expr, "is_anomaly_product"] = df.loc[expr, "is_anomaly_image"].sum()
         df.loc[df["is_anomaly_product"] != 0, "is_anomaly_product"] = 1
 
