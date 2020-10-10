@@ -175,14 +175,14 @@ class ReproCreateInfoCSV:
 
     def _add_data_block_id(self, df: pd.DataFrame) -> pd.DataFrame:
 
-        # Split the dataset into hundred blocks based on product_id
+        # Split the dataset into ten blocks based on product_id
         # A seed value is specified to preserve the reproducibility of the split
         product_id_list = df["product_id"].unique()
         random.Random(0).shuffle(product_id_list)
-        hundred_blocks = np.array_split(product_id_list, 10)
+        ten_blocks = np.array_split(product_id_list, 10)
 
         df["data_block_id"] = -1
-        for block_id, block in enumerate(hundred_blocks):
+        for block_id, block in enumerate(ten_blocks):
             for product_id in block:
                 df.loc[df["product_id"] == product_id, "data_block_id"] = block_id
 

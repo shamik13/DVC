@@ -44,8 +44,8 @@ class ReproCropTobuAndZiku:
             ziku_row["stem"] = ziku_stem
             ziku_row["crop_type"] = "ziku"
 
-            out_df.append(tobu_row, ignore_index=True)
-            out_df.append(ziku_row, ignore_index=True)
+            out_df = out_df.append(tobu_row, ignore_index=True)
+            out_df = out_df.append(ziku_row, ignore_index=True)
 
         return out_df
 
@@ -66,8 +66,8 @@ class ReproCropTobuAndZiku:
                     tobu_img = img[:, :boundary, :]
                     ziku_img = img[:, boundary:, :]
 
-                    cv2.imwrite(parent_dir / f"{tobu_stem}.{suffix}", tobu_img)
-                    cv2.imwrite(parent_dir / f"{ziku_stem}.{suffix}", ziku_img)
+                    cv2.imwrite(str(parent_dir / f"{tobu_stem}.{suffix}"), tobu_img)
+                    cv2.imwrite(str(parent_dir / f"{ziku_stem}.{suffix}"), ziku_img)
 
     def _crop_mask(self, df: pd.DataFrame, boundary: int = 980) -> None:
 
@@ -83,21 +83,21 @@ class ReproCropTobuAndZiku:
             tobu_mask = mask[:, :boundary, :]
             ziku_mask = mask[:, boundary:, :]
 
-            cv2.imwrite(self.raw_dataset_dir / f"masks/{tobu_stem}.png", tobu_mask)
-            cv2.imwrite(self.raw_dataset_dir / f"masks/{ziku_stem}.png", ziku_mask)
+            cv2.imwrite(str(self.raw_dataset_dir / f"masks/{tobu_stem}.png"), tobu_mask)
+            cv2.imwrite(str(self.raw_dataset_dir / f"masks/{ziku_stem}.png"), ziku_mask)
 
     def _update_has_label(self, df: pd.DataFrame) -> pd.DataFrame:
 
         # Initialize has_label column
         expr = df["crop_type"] != "uncrop"
-        df[expr, "has_kizu_dakon"] = 0
-        df[expr, "has_kizu_ware"] = 0
-        df[expr, "has_kizu_zairyou"] = 0
-        df[expr, "has_ignore_shallow"] = 0
-        df[expr, "has_ignore_cutting"] = 0
-        df[expr, "has_ignore_oil"] = 0
+        df.loc[expr, "has_kizu_dakon"] = 0
+        df.loc[expr, "has_kizu_ware"] = 0
+        df.loc[expr, "has_kizu_zairyou"] = 0
+        df.loc[expr, "has_ignore_shallow"] = 0
+        df.loc[expr, "has_ignore_cutting"] = 0
+        df.loc[expr, "has_ignore_oil"] = 0
 
-        for stem in df[expr, "stem"]:
+        for stem in df.loc[expr, "stem"]:
 
             mask = cv2.imread(str(self.raw_dataset_dir / f"masks/{stem}.png"))
             expr = df["stem"] == stem
@@ -131,11 +131,11 @@ class ReproCropTobuAndZiku:
 
         # Initialize is_anomaly_image column
         expr = df["crop_type"] != "uncrop"
-        df[expr, "is_anomaly_image"] = 0
+        df.loc[expr, "is_anomaly_image"] = 0
 
-        df[expr, "is_anomaly_image"] += df["has_kizu_dakon"]
-        df[expr, "is_anomaly_image"] += df["has_kizu_ware"]
-        df[expr, "is_anomaly_image"] += df["has_kizu_zairyou"]
+        df.loc[expr, "is_anomaly_image"] += df["has_kizu_dakon"]
+        df.loc[expr, "is_anomaly_image"] += df["has_kizu_ware"]
+        df.loc[expr, "is_anomaly_image"] += df["has_kizu_zairyou"]
         df.loc[expr & (df["is_anomaly_image"] != 0), "is_anomaly_image"] = 1
 
         return df
@@ -144,7 +144,7 @@ class ReproCropTobuAndZiku:
 
         # Initialize is_anomaly_product column
         uncrop_expr = df["crop_type"] != "uncrop"
-        df[uncrop_expr, "is_anomaly_product"] = -1
+        df.loc[uncrop_expr, "is_anomaly_product"] = -1
 
         for product_id in df["product_id"].unique():
 
