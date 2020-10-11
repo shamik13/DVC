@@ -1,11 +1,11 @@
 ## 1. Introduction
-This repository provides the dataset for SOMIC project. Users mainly work on `DVC/dataset` directory which stores `images/`, `masks/` and `info.csv`.  All the previous images and masks are in the directories. Users can extract the desired data with `info.csv`, and then use them for training and evaluation. If you want to know how to extract in detail, please see `3. Query Recipes`. This repository is available in DGX `/dgx/shared/momo/inoue/DVC`.
+This repository provides the dataset for SOMIC project. Users mainly work on `DVC/dataset` directory which stores `color_images/`, `gray_images`, `masks/` and `info.csv`.  All the images and masks are in these directories. By passing the query to `info.csv`, users can get the desired dataset. If you want to know more, please see `3. info.csv` and `4. Query Recipes`. This repository is available in DGX `/dgx/shared/momo/inoue/DVC`.
 
 <br>
 
 
 ## 2. Label and Flag
-This dataset has two type of annotation, `label` and `flag`. `label` is the annotation assigned to each pixel, and `flag` is the annotation assigned to each image.
+This dataset has two type of annotation: `label` and `flag`. `label` is the annotation assigned to each pixel, and `flag` is the annotation assigned to each image.
 The following tables are description about `label` and `flag`.
 
 <br>
@@ -57,33 +57,33 @@ Still working... Please wait for a few days...
 | Variable           | Description                                                 | Type | Key |
 | :-                 | :-                                                          | :-   | :-  |
 | raw_product_id     | The original product id                                     | int  | - |
-| product_id         | Timestamp at camera angle 0                                 | int  | yyyymmddhhmmssmmm |
+| product_id         | `timestamp` at camera angle 0                               | int  | yyyymmddhhmmssmmm |
 | camera_id          | The imaging device                                          | int  | 1 (end of body), 2 (whole), 3 (inside of head), 4 (top of head) |
 | camera_angle       | Camera angle                                                | int  | 0-7 (camera 1), 0-11 (camera 2), 0-4 (camera 3), 0 (camera 4) |
 | crop_type          | The type of crop                                            | str  | uncrop, tobu (at camera_id 2), ziku (at camera_id 2) |
 | color_type         | The type of color                                           | str  | gray, color |
-| raw_stem           | Raw filename without its suffix                             | str  | [raw_product_id]_[timestamp] |
-| stem               | Renamed filename without its suffix                         | str  | [product_id]_[crop_type]_[angle] |
+| raw_stem           | Raw filename without its suffix                             | str  | `[raw_product_id]_[timestamp]` |
+| stem               | Renamed filename without its suffix                         | str  | `[product_id]_[crop_type]_[angle]` |
 | product_type       | The type of product                                         | str  | B, C, H, K, RAV4, Y1J, YJA |
 | received_date      | The date when we received raw datasets                      | int  | yyyymmdd |
 | timestamp          | The time the image was captured                             | int  | yyyymmddhhmmssmmm |
 | is_anomaly_image   | Does the image have kizu?                                   | int  | 1 (Yes), 0 (No) |
 | is_anomaly_product | Does the product have kizu?                                 | int  | 1 (Yes), 0 (No) |
-| has_kizu_dakon     | Does the image have kizu_dakon label?                       | int  | 1 (Yes), 0 (No) |
-| has_kizu_ware      | Does the image have kizu_ware label?                        | int  | 1 (Yes), 0 (No) |
-| has_kizu_zairyou   | Does the image have kizu_zairyou label?                     | int  | 1 (Yes), 0 (No) |
-| has_ignore_shallow | Does the image have ignore_shallow label?                   | int  | 1 (Yes), 0 (No) |
-| has_ignore_cutting | Does the image have ignore_cutting label?                   | int  | 1 (Yes), 0 (No) |
-| has_ignore_oil     | Does the image have ignore_oil label?                       | int  | 1 (Yes), 0 (No) |
-| has_sabi           | Does the image have sabi flag?                              | int  | 1 (Yes), 0 (No) |
-| has_unuse          | Does the image have unuse flag?                             | int  | 1 (Yes), 0 (No) |
+| has_kizu_dakon     | Does the image have `kizu_dakon` label?                     | int  | 1 (Yes), 0 (No) |
+| has_kizu_ware      | Does the image have `kizu_ware` label?                      | int  | 1 (Yes), 0 (No) |
+| has_kizu_zairyou   | Does the image have `kizu_zairyou` label?                   | int  | 1 (Yes), 0 (No) |
+| has_ignore_shallow | Does the image have `ignore_shallow` label?                 | int  | 1 (Yes), 0 (No) |
+| has_ignore_cutting | Does the image have `ignore_cutting` label?                 | int  | 1 (Yes), 0 (No) |
+| has_ignore_oil     | Does the image have `ignore_oil` label?                     | int  | 1 (Yes), 0 (No) |
+| has_sabi           | Does the image have `sabi` flag?                            | int  | 1 (Yes), 0 (No) |
+| has_unuse          | Does the image have `unuse` flag?                           | int  | 1 (Yes), 0 (No) |
 | data_block_id      | The raw dataset is split into 10 blocks with ID from 0 to 9 | int  | 0-9 |
 
 <br>
 
 ## 4. Query Recipes
 By passing the query to info.csv, you can get the desired dataset.
-[examples/example.ipynb](https://github.com/TaikiInoue/DVC/blob/master/examples/example.ipynb) is also useful, so check it out.
+[example.ipynb](https://github.com/TaikiInoue/DVC/blob/master/examples/example.ipynb) is also useful, so check it out.
 
 <br>
 
@@ -101,6 +101,8 @@ dataset:
         camera_id == 2 &
         crop_type == 'tobu' &
         is_anomaly_image == 1 &
+        has_sabi == 0 &
+        has_unuse == 0 &
         data_block_id < 7
   val:
     args:
@@ -112,6 +114,8 @@ dataset:
         camera_id == 2 &
         crop_type == 'tobu' &
         is_anomaly_image == 1 &
+        has_sabi == 0 &
+        has_unuse == 0 &
         data_block_id == 7
   test:
     args:
@@ -123,6 +127,8 @@ dataset:
         camera_id == 2 &
         crop_type == 'tobu' &
         is_anomaly_image == 1 &
+        has_sabi == 0 &
+        has_unuse == 0 &
         data_block_id > 7
 ```
 
@@ -142,6 +148,8 @@ dataset:
         camera_id == 2 &
         crop_type == 'tobu' &
         is_anomaly_image == 1 &
+        has_sabi == 0 &
+        has_unuse == 0 &
         data_block_id < 3
   unlabeled_train:
     args:
@@ -153,6 +161,8 @@ dataset:
         camera_id == 2 &
         crop_type == 'tobu' &
         is_anomaly_image == 1 &
+        has_sabi == 0 &
+        has_unuse == 0 &
         data_block_id >= 3
         data_block_id < 7
   val:
@@ -165,6 +175,8 @@ dataset:
         camera_id == 2 &
         crop_type == 'tobu' &
         is_anomaly_image == 1 &
+        has_sabi == 0 &
+        has_unuse == 0 &
         data_block_id == 7
   test:
     args:
@@ -176,6 +188,8 @@ dataset:
         camera_id == 2 &
         crop_type == 'tobu' &
         is_anomaly_image == 1 &
+        has_sabi == 0 &
+        has_unuse == 0 &
         data_block_id > 7
 ```
 
@@ -196,6 +210,8 @@ dataset:
         camera_angle == 11 &
         crop_type == 'tobu' &
         is_anomaly_image == 0 &
+        has_sabi == 0 &
+        has_unuse == 0 &
         data_block_id < 7
   test:
     args:
@@ -208,6 +224,8 @@ dataset:
         camera_angle == 11 &
         crop_type == 'tobu' &
         is_anomaly_image == 1 &
+        has_sabi == 0 &
+        has_unuse == 0 &
         data_block_id > 7
 ```
 
