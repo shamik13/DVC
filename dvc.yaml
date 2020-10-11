@@ -1,33 +1,18 @@
 stages:
-  initialize:
-    cmd: python repro/initialize/initialize.py
+  prepare_dataset:
+    cmd: python repro/repro.py
     deps:
-    - repro/initialize/initialize.py
-  create_for_202006_highlander:
-    cmd: python repro/create_202006_highlander/dataset_creator.py
-    deps:
-    - raw_datasets/20200611_H_tobu_normal.zip
-    - raw_datasets/20200611_H_ziku_normal.zip
-    - raw_datasets/20200618_H_tobu_anomaly.zip
-    - raw_datasets/20200618_H_ziku_anomaly.zip
-    - repro/create_202006_highlander/convert_bmp_to_jpg.py
-    - repro/create_202006_highlander/create_info_csv.py
-    - repro/create_202006_highlander/dataset_creator.py
-    - repro/create_202006_highlander/extract_zip.py
-    - repro/create_202006_highlander/rename_files.py
+    - raw_datasets/20201005_H_2_anomaly.zip
+    - repro/check_format.py
+    - repro/create_info_csv.py
+    - repro/create_mask.py
+    - repro/crop_tobu_and_ziku.py
+    - repro/merge.py
+    - repro/rename.py
+    - repro/repro.py
+    - repro/unzip.py
     outs:
-    - raw_datasets/20200611_H_tobu_normal
-    - raw_datasets/20200611_H_ziku_normal
-    - raw_datasets/20200618_H_tobu_anomaly
-    - raw_datasets/20200618_H_ziku_anomaly
-  merge:
-    cmd: python repro/merge/merge.py
-    deps:
-    - raw_datasets/20200611_H_tobu_normal
-    - raw_datasets/20200611_H_ziku_normal
-    - raw_datasets/20200618_H_tobu_anomaly
-    - raw_datasets/20200618_H_ziku_anomaly
-    outs:
-    - dataset/images
+    - dataset/color_images
+    - dataset/gray_images
     - dataset/info.csv
     - dataset/masks

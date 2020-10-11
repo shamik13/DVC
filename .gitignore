@@ -3,6 +3,9 @@
 *.png
 *.jpg
 *.json
+*.zip
+sandbox.py
+sandbox.ipynb
 __MACOSX/
 
 # Byte-compiled / optimized / DLL files

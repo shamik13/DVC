@@ -1,53 +1,30 @@
-initialize:
-  cmd: python repro/initialize/initialize.py
+prepare_dataset:
+  cmd: python repro/repro.py
   deps:
-  - path: repro/initialize/initialize.py
-    md5: 692f40e71384b8014370bcf74f5a18fd
-create_for_202006_highlander:
-  cmd: python repro/create_202006_highlander/dataset_creator.py
-  deps:
-  - path: raw_datasets/20200611_H_tobu_normal.zip
-    md5: f53a834a34f3416a544fb7cdeb5d50b7
-  - path: raw_datasets/20200611_H_ziku_normal.zip
-    md5: 363d5d7b9c2632d8775c406e1ddf3273
-  - path: raw_datasets/20200618_H_tobu_anomaly.zip
-    md5: 411dced0077fc1625667d30ca2606fb0
-  - path: raw_datasets/20200618_H_ziku_anomaly.zip
-    md5: 6cb7446827e1e4a29b58c7e703d6696d
-  - path: repro/create_202006_highlander/convert_bmp_to_jpg.py
-    md5: d7736f83de66ea60afc76ebe431ea42f
-  - path: repro/create_202006_highlander/create_info_csv.py
-    md5: d40ba5b5f27ca8898df1dd2aec57a054
-  - path: repro/create_202006_highlander/dataset_creator.py
-    md5: 73f85b608c599d611fbd8b0b3dcd262e
-  - path: repro/create_202006_highlander/extract_zip.py
-    md5: 092bd5575fcab9432b605d140ef0386d
-  - path: repro/create_202006_highlander/rename_files.py
-    md5: 850b9febb5f8598ce2c19d585c2db82a
+  - path: raw_datasets/20201005_H_2_anomaly.zip
+    md5: 5689fb03c4c2a1fe0014e108e0bec4a0
+  - path: repro/check_format.py
+    md5: 1aacb28b3dee0991633b1d91fa83d77e
+  - path: repro/create_info_csv.py
+    md5: 27d653b2cd14d97daa20fe70e8d3cda5
+  - path: repro/create_mask.py
+    md5: 562ee727827f4f530ce260403a68bd55
+  - path: repro/crop_tobu_and_ziku.py
+    md5: df98069c18ed6e975bb6a488bc6d4876
+  - path: repro/merge.py
+    md5: 6d99f7af228d2a4bf7b4537b1eff860d
+  - path: repro/rename.py
+    md5: 78843a49733afaac00c46cdc967eba79
+  - path: repro/repro.py
+    md5: 3ed7e30c072783735308e2585cceb650
+  - path: repro/unzip.py
+    md5: 2e0956fa555a23f0dc748b905653c786
   outs:
-  - path: raw_datasets/20200611_H_tobu_normal
-    md5: 154ee56a786300cc28f5e504b18db303.dir
-  - path: raw_datasets/20200611_H_ziku_normal
-    md5: cbb5f93eca143f3c9790b670d9dfb70d.dir
-  - path: raw_datasets/20200618_H_tobu_anomaly
-    md5: 86e3635db2737fa169a3fb6a8dde5eee.dir
-  - path: raw_datasets/20200618_H_ziku_anomaly
-    md5: 9169648c2f44b66867f93e6b89fa88a2.dir
-merge:
-  cmd: python repro/merge/merge.py
-  deps:
-  - path: raw_datasets/20200611_H_tobu_normal
-    md5: bff9285339e6291a7926c877cfd45318.dir
-  - path: raw_datasets/20200611_H_ziku_normal
-    md5: 9a6cdd74ea1cd55937797cb9e7ed2474.dir
-  - path: raw_datasets/20200618_H_tobu_anomaly
-    md5: 796bb8cea3d002c1f4a042db5baa9407.dir
-  - path: raw_datasets/20200618_H_ziku_anomaly
-    md5: b6401c577fef959f1ff8101857a6930c.dir
-  outs:
-  - path: dataset/images
-    md5: f0eb71adb3f4fdd9cb18d951402826a7.dir
+  - path: dataset/color_images
+    md5: f651551400b88ef5a5b71fc2d2a537cd.dir
+  - path: dataset/gray_images
+    md5: 9a8c63a223f2b2869746d2713d0eafb1.dir
   - path: dataset/info.csv
-    md5: 6ba7953128bd74b9f3e986d62fd61bd7
+    md5: cdce99131c77c4bb1d9aa4f5285e9ecb
   - path: dataset/masks
-    md5: b4f04d695a7ca7f71b5926df7f257748.dir
+    md5: c921122a3c295e02bbea3586cf98d2ab.dir

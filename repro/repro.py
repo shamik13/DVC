@@ -34,7 +34,7 @@ class Repro(
 
 if __name__ == "__main__":
 
-    base = Path("/dgx/github/DVC")
+    base = Path(".")
 
     for zip_path in base.glob("raw_datasets/*_anomaly.zip"):
 
