@@ -54,109 +54,173 @@ Still working... Please wait for a few days...
 
 ## 3. info.csv
 
-Still working... Please wait for a few days...
-
-| Variable           | Description                                   | Type | Key |
-| :-                 | :-                                            | :-   | :-  |
-| product_type       | The type of product                           | str  | B, C, H, K, RAV4, Y1J, YJA |
-| camera             | The imaging device                            | int  | 1 (end of body), 2 (whole), 3 (inside of head), 4 (top of head) |
-| crop_type          | The type of crop                              | str  | tobu (camera 2), ziku (camera 2), center_of_ziku (camera 2), uncropped |
-| received_date      | The date when we received raw datasets        | int  | yyyymmdd |
-| timestamp          | The time the image was taken                  | int  | yyyymmddhhmmssmm |
-| raw_product_id     | The original product id                       | int  | -   |
-| product_id         | Timestamp at camera angle 0                   | int  | yyyymmddhhmmssmm |
-| angle              | Camera angle                                  | int  | 0-7 (camera 1), 0-11 (camera 2), 0-4 (camera 3), 0 (camera 4) |
-| raw_stem           | Raw filename without its suffix               | str  | -   |
-| stem               | Renamed filename without its suffix           | str  | [product_id]_[crop_type]_[angle] |
-| is_anomaly_image   | Does the image have kizu?                     | int  | 0 (No), 1 (Yes) |
-| is_anomaly_product | Does the product have kizu?                   | int  | 0 (No), 1 (Yes) |
-| supervised         | The type of data for supervised learning      | str  | train, test, unuse |
+| Variable           | Description                                                 | Type | Key |
+| :-                 | :-                                                          | :-   | :-  |
+| raw_product_id     | The original product id                                     | int  | - |
+| product_id         | Timestamp at camera angle 0                                 | int  | yyyymmddhhmmssmmm |
+| camera_id          | The imaging device                                          | int  | 1 (end of body), 2 (whole), 3 (inside of head), 4 (top of head) |
+| camera_angle       | Camera angle                                                | int  | 0-7 (camera 1), 0-11 (camera 2), 0-4 (camera 3), 0 (camera 4) |
+| crop_type          | The type of crop                                            | str  | uncrop, tobu (at camera_id 2), ziku (at camera_id 2) |
+| color_type         | The type of color                                           | str  | gray, color |
+| raw_stem           | Raw filename without its suffix                             | str  | [raw_product_id]_[timestamp] |
+| stem               | Renamed filename without its suffix                         | str  | [product_id]_[crop_type]_[angle] |
+| product_type       | The type of product                                         | str  | B, C, H, K, RAV4, Y1J, YJA |
+| received_date      | The date when we received raw datasets                      | int  | yyyymmdd |
+| timestamp          | The time the image was captured                             | int  | yyyymmddhhmmssmmm |
+| is_anomaly_image   | Does the image have kizu?                                   | int  | 1 (Yes), 0 (No) |
+| is_anomaly_product | Does the product have kizu?                                 | int  | 1 (Yes), 0 (No) |
+| has_kizu_dakon     | Does the image have kizu_dakon label?                       | int  | 1 (Yes), 0 (No) |
+| has_kizu_ware      | Does the image have kizu_ware label?                        | int  | 1 (Yes), 0 (No) |
+| has_kizu_zairyou   | Does the image have kizu_zairyou label?                     | int  | 1 (Yes), 0 (No) |
+| has_ignore_shallow | Does the image have ignore_shallow label?                   | int  | 1 (Yes), 0 (No) |
+| has_ignore_cutting | Does the image have ignore_cutting label?                   | int  | 1 (Yes), 0 (No) |
+| has_ignore_oil     | Does the image have ignore_oil label?                       | int  | 1 (Yes), 0 (No) |
+| has_sabi           | Does the image have sabi flag?                              | int  | 1 (Yes), 0 (No) |
+| has_unuse          | Does the image have unuse flag?                             | int  | 1 (Yes), 0 (No) |
+| data_block_id      | The raw dataset is split into 10 blocks with ID from 0 to 9 | int  | 0-9 |
 
 <br>
 
 ## 4. Query Recipes
-We prepared the query recipes to extract data for supervised or unsupervised learning.
+By passing the query to info.csv, you can get the desired dataset.
 [examples/example.ipynb](https://github.com/TaikiInoue/DVC/blob/master/examples/example.ipynb) is also useful, so check it out.
 
 <br>
 
-### 4.1. for Supervised Learing
-
-`/dgx/shared/momo/inoue/somic/dataset/H_tobu_segmentation`
+### 4.1. Supervised Dataset
 
 ```
 dataset:
-  base: <path_to_dataset_dir>
   train:
-    query:
-      - is_anomaly_image == 1 &
+    args:
+      base: [path to dataset directory]
+      color_type: color
+      suffix: jpg
+      query:
+      - product_type == 'H' &
+        camera_id == 2 &
         crop_type == 'tobu' &
-        supervised == 'train'
+        is_anomaly_image == 1 &
+        data_block_id < 7
+  val:
+    args:
+      base: [path to dataset directory]
+      color_type: color
+      suffix: jpg
+      query:
+      - product_type == 'H' &
+        camera_id == 2 &
+        crop_type == 'tobu' &
+        is_anomaly_image == 1 &
+        data_block_id == 7
   test:
-    query:
-      - crop_type == 'tobu' &
-        supervised == 'test'
+    args:
+      base: [path to dataset directory]
+      color_type: color
+      suffix: jpg
+      query:
+      - product_type == 'H' &
+        camera_id == 2 &
+        crop_type == 'tobu' &
+        is_anomaly_image == 1 &
+        data_block_id > 7
 ```
 
 <br>
 
-`/dgx/shared/momo/inoue/somic/dataset/H_tobu_segmentation_mix`
+### 4.1. Semi-Supervised Dataset
 
 ```
 dataset:
-  base: <path_to_dataset_dir>
-  train:
-    query:
-      - is_anomaly_image == 1 &
+  labeled_train:
+    args:
+      base: [path to dataset directory]
+      color_type: color
+      suffix: jpg
+      query:
+      - product_type == 'H' &
+        camera_id == 2 &
         crop_type == 'tobu' &
-        supervised == 'train'
-      - is_anomaly_product == 0 &
+        is_anomaly_image == 1 &
+        data_block_id < 3
+  unlabeled_train:
+    args:
+      base: [path to dataset directory]
+      color_type: color
+      suffix: jpg
+      query:
+      - product_type == 'H' &
+        camera_id == 2 &
         crop_type == 'tobu' &
-        supervised == 'train'
+        is_anomaly_image == 1 &
+        data_block_id >= 3
+        data_block_id < 7
+  val:
+    args:
+      base: [path to dataset directory]
+      color_type: color
+      suffix: jpg
+      query:
+      - product_type == 'H' &
+        camera_id == 2 &
+        crop_type == 'tobu' &
+        is_anomaly_image == 1 &
+        data_block_id == 7
   test:
-    query:
-      - crop_type == 'tobu' &
-        supervised == 'test'
+    args:
+      base: [path to dataset directory]
+      color_type: color
+      suffix: jpg
+      query:
+      - product_type == 'H' &
+        camera_id == 2 &
+        crop_type == 'tobu' &
+        is_anomaly_image == 1 &
+        data_block_id > 7
 ```
 
 <br>
 
-### 4.2. for Unsupervised Learing
-
-`/dgx/shared/momo/inoue/somic/dataset/H_tobu_unsupervise` at camera angle 0
+### 4.1. Un-Supervised Dataset
 
 ```
 dataset:
-  base: <path_to_dataset_dir>
   train:
-    query:
-      - is_anomaly_product == 1 &
+    args:
+      base: [path to dataset directory]
+      color_type: color
+      suffix: jpg
+      query:
+      - product_type == 'H' &
+        camera_id == 2 &
+        camera_angle == 11 &
+        crop_type == 'tobu' &
         is_anomaly_image == 0 &
-        angle == 0 &
-        crop_type == 'tobu' &
-        supervised == 'train'
-      - is_anomaly_product == 0 &
-        angle == 0 &
-        crop_type == 'tobu' &
-        supervised == 'train'
+        data_block_id < 7
   test:
-    query:
-      - angle == 0 &
+    args:
+      base: [path to dataset directory]
+      color_type: color
+      suffix: jpg
+      query:
+      - product_type == 'H' &
+        camera_id == 2 &
+        camera_angle == 11 &
         crop_type == 'tobu' &
-        supervised == 'test'
+        is_anomaly_image == 1 &
+        data_block_id > 7
 ```
 
 <br>
 
-## 5. Reproduce a Specific Version Data
+## 5. Reproduce v1.0.0 Dataset
 To download a specific version data in your local, run the following commands. Please note that you need to contact Inoue to get `azure_storage_connection_string`.
-
 
 ```
 git clone git@github.com:TaikiInoue/DVC.git
 cd DVC
-git checkout <commit_hash>
-dvc remote modify --local blob_storage connection_string <azure_storage_connection_string>
-dvc pull raw_datasets/*.zip.dvc
-dvc repro
+git checkout v1.0.0
+dvc remote modify --local blob_storage connection_string [azure_storage_connection_string]
+make dvc_pull
+make dvc_repro
 ```
