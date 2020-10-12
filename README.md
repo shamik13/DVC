@@ -36,17 +36,17 @@ The images with rust are deprecated for train and test.
 
 Still working... Please wait for a few days...
 
-| label: kizu_dakon          | label: kizu_ware           | label: kizu_zairyou        |
-| --                         | --                         | --                         |
-| <img height=300 width=300> | <img height=300 width=300> | <img height=300 width=300> |
+| label: kizu_dakon                                      | label: kizu_ware                                      | label: kizu_zairyou                                      |
+| --                                                     | --                                                    | --                                                       |
+| <img src="assets/kizu_dakon.png" height=300 width=300> | <img src="assets/kizu_ware.png" height=300 width=300> | <img src="assets/kizu_zairyou.png" height=300 width=300> |
 
-| label: ignore_shallow      | label: ignore_cutting      | label: ignore_oil          |
-| --                         | --                         | --                         |
-| <img height=300 width=300> | <img height=300 width=300> | <img height=300 width=300> |
+| label: ignore_shallow                                  | label: ignore_cutting                                          | label: ignore_oil                                      |
+| --                                                     | --                                                             | --                                                     |
+| <img src="assets/ignore_shallow.png" height=300 width=300> | <img src="assets/ignore_cutting.png" height=300 width=300> | <img src="assets/ignore_oil.png" height=300 width=300> |
 
-| flag: sabi                 | flag: unuse                |                            |
-| --                         | --                         | --                         |
-| <img height=300 width=300> | <img height=300 width=300> | <img height=300 width=300> |
+| flag: sabi                                       | flag: unuse                                      |                            |
+| --                                               | --                                               | --                         |
+| <img src="assets/sabi.png" height=300 width=300> | <img src="assets/unuse.png" height=300 width=300>| <img height=300 width=300> |
 
 
 <br>
