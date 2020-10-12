@@ -1,8 +1,16 @@
-## 1. Introduction
-This repository provides the dataset for SOMIC project. Users mainly work on `DVC/dataset` directory which stores `color_images/`, `gray_images`, `masks/` and `info.csv`.  All the images and masks are in these directories. By passing the query to `info.csv`, users can get the desired dataset. If you want to know more, please see `3. info.csv` and `4. Query Recipes`. This repository is available in DGX `/dgx/shared/momo/inoue/DVC`.
+# SOMIC Data
+Version-Controlled SOMIC Data
 
 <br>
 
+## 1. Introduction
+This repository provides the dataset for SOMIC project.
+Users mainly work on `somic-data/dataset` directory which stores `color_images/`, `gray_images/`, `masks/` and `info.csv`.
+By passing the queries to `info.csv`, you can get the desired dataset.
+If you want to know more, please see `3. info.csv` and `4. Query Recipes`.
+This repository is available in DGX `/dgx/shared/momo/inoue/somic-data`.
+
+<br>
 
 ## 2. Label and Flag
 This dataset has two type of annotation: `label` and `flag`. `label` is the annotation assigned to each pixel, and `flag` is the annotation assigned to each image.
@@ -34,17 +42,17 @@ The images with rust are deprecated for train and test.
 
 ### ■ Examples
 
-| label: kizu_dakon                                      | label: kizu_ware                                      | label: kizu_zairyou                                      |
-| --                                                     | --                                                    | --                                                       |
-| <img src="assets/kizu_dakon.png" height=300 width=300> | <img src="assets/kizu_ware.png" height=300 width=300> | <img src="assets/kizu_zairyou.png" height=300 width=300> |
+| label: kizu_dakon                                          | label: kizu_ware                                           | label: kizu_zairyou                                      |
+| --                                                         | --                                                         | --                                                       |
+| <img src="assets/kizu_dakon.png" height=300 width=300>     | <img src="assets/kizu_ware.png" height=300 width=300>      | <img src="assets/kizu_zairyou.png" height=300 width=300> |
 
-| label: ignore_shallow                                  | label: ignore_cutting                                          | label: ignore_oil                                      |
-| --                                                     | --                                                             | --                                                     |
+| label: ignore_shallow                                      | label: ignore_cutting                                      | label: ignore_oil                                      |
+| --                                                         | --                                                         | --                                                     |
 | <img src="assets/ignore_shallow.png" height=300 width=300> | <img src="assets/ignore_cutting.png" height=300 width=300> | <img src="assets/ignore_oil.png" height=300 width=300> |
 
-| flag: sabi                                       | flag: unuse                                      |                            |
-| --                                               | --                                               | --                         |
-| <img src="assets/sabi.png" height=300 width=300> | <img src="assets/unuse.png" height=300 width=300>| <img height=300 width=300> |
+| flag: sabi                                                 | flag: unuse                                                |                            |
+| --                                                         | --                                                         | --                         |
+| <img src="assets/sabi.png" height=300 width=300>           | <img src="assets/unuse.png" height=300 width=300>          | <img height=300 width=300> |
 
 
 <br>
@@ -52,7 +60,7 @@ The images with rust are deprecated for train and test.
 
 ## 3. info.csv
 
-| Variable           | Description                                                 | Type | Key |
+| Column Name        | Description                                                 | Type | Key |
 | :-                 | :-                                                          | :-   | :-  |
 | raw_product_id     | The original product id                                     | int  | - |
 | product_id         | `timestamp` at camera angle 0                               | int  | yyyymmddhhmmssmmm |
@@ -81,17 +89,19 @@ The images with rust are deprecated for train and test.
 
 ## 4. Query Recipes
 By passing the query to info.csv, you can get the desired dataset.
-[example.ipynb](https://github.com/TaikiInoue/DVC/blob/master/examples/example.ipynb) is also useful, so check it out.
+At the following, recipes of the query are shared, and please read them kindly.
+[example.ipynb](https://github.com/nablas-inc/somic-data/blob/master/examples/example.ipynb) explains how to use the query.
 
 <br>
 
 ### 4.1. Supervised Dataset
+Highlander ziku dataset containing just kizu data.
 
 ```
 dataset:
   train:
     args:
-      base: [path to dataset directory]
+      base: [path to somic-data/dataset directory]
       color_type: color
       suffix: jpg
       query:
@@ -104,7 +114,7 @@ dataset:
         data_block_id < 7
   val:
     args:
-      base: [path to dataset directory]
+      base: [path to somic-data/dataset directory]
       color_type: color
       suffix: jpg
       query:
@@ -117,7 +127,7 @@ dataset:
         data_block_id == 7
   test:
     args:
-      base: [path to dataset directory]
+      base: [path to somic-data/dataset directory]
       color_type: color
       suffix: jpg
       query:
@@ -138,7 +148,7 @@ dataset:
 dataset:
   labeled_train:
     args:
-      base: [path to dataset directory]
+      base: [path to somic-data/dataset directory]
       color_type: color
       suffix: jpg
       query:
@@ -151,7 +161,7 @@ dataset:
         data_block_id < 3
   unlabeled_train:
     args:
-      base: [path to dataset directory]
+      base: [path to somic-data/dataset directory]
       color_type: color
       suffix: jpg
       query:
@@ -165,7 +175,7 @@ dataset:
         data_block_id < 7
   val:
     args:
-      base: [path to dataset directory]
+      base: [path to somic-data/dataset directory]
       color_type: color
       suffix: jpg
       query:
@@ -178,7 +188,7 @@ dataset:
         data_block_id == 7
   test:
     args:
-      base: [path to dataset directory]
+      base: [path to somic-data/dataset directory]
       color_type: color
       suffix: jpg
       query:
@@ -199,7 +209,7 @@ dataset:
 dataset:
   train:
     args:
-      base: [path to dataset directory]
+      base: [path to somic-data/dataset directory]
       color_type: color
       suffix: jpg
       query:
@@ -213,7 +223,7 @@ dataset:
         data_block_id < 7
   test:
     args:
-      base: [path to dataset directory]
+      base: [path to somic-data/dataset directory]
       color_type: color
       suffix: jpg
       query:
