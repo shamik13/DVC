@@ -237,6 +237,7 @@ b) Download this repository
 ```
 git clone git@github.com:TaikiInoue/DVC.git
 cd DVC
+git checkout v1.0.0
 ```
 
 c) Install python requirements
