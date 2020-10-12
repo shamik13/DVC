@@ -245,7 +245,7 @@ a) Start docker container from `PyTorch+CUDA` image on JupyterHub
 
 b) Download this repository
 ```
-git@github.com:nablas-inc/somic-data.git
+git clone git@github.com:nablas-inc/somic-data.git
 cd somic-data
 git checkout v1.0.0
 ```
@@ -255,9 +255,9 @@ c) Install python requirements
 pip install -r requirements.txt
 ```
 
-d) Register `connection_string`. If you don't know how to get it, please contact Inoue or Shamik.
+d) Register `[connection_string]`. If you don't know how to get it, please contact Inoue or Shamik.
 ```
-dvc remote modify --local somic-data connection_string [connection_string]
+dvc remote modify --local somic-data connection_string "[connection_string]"
 ```
 
 e) Download *.zip file from Azure Blob Storage
