@@ -247,10 +247,10 @@ pip install -r requirements.txt
 
 d) Register `connection_string`. If you don't know how to get it, please contact Inoue or Shamik.
 ```
-dvc remote modify --local blob_storage connection_string [azure_storage_connection_string]
+dvc remote modify --local somic-data connection_string [connection_string]
 ```
 
-e) Download *.zip file
+e) Download *.zip file from Azure Blob Storage
 ```
 make dvc_pull
 ```
