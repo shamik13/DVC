@@ -235,8 +235,8 @@ a) Start docker container from `PyTorch+CUDA` image on JupyterHub
 
 b) Download this repository
 ```
-git clone git@github.com:TaikiInoue/DVC.git
-cd DVC
+git@github.com:nablas-inc/somic-data.git
+cd somic-data
 git checkout v1.0.0
 ```
 
