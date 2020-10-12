@@ -1,4 +1,4 @@
 [core]
-    remote = blob_storage
-['remote "blob_storage"']
+    remote = somic-data
+['remote "somic-data"']
     url = azure://somic/dvc_storage
