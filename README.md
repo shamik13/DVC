@@ -34,8 +34,6 @@ The images with rust are deprecated for train and test.
 
 ### ■ Examples
 
-Still working... Please wait for a few days...
-
 | label: kizu_dakon                                      | label: kizu_ware                                      | label: kizu_zairyou                                      |
 | --                                                     | --                                                    | --                                                       |
 | <img src="assets/kizu_dakon.png" height=300 width=300> | <img src="assets/kizu_ware.png" height=300 width=300> | <img src="assets/kizu_zairyou.png" height=300 width=300> |
