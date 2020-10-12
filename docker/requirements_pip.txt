@@ -1,7 +1,0 @@
-numpy
-pandas
-opencv-python-headless
-typing
-black
-flake8
-mypy

@@ -1,6 +1,0 @@
-curl
-ca-certificates
-git
-peco
-wget
-zsh
