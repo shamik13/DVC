@@ -231,14 +231,32 @@ dataset:
 
 <br>
 
-## 5. Reproduce v1.0.0 Dataset
-To download a specific version data in your local, run the following commands. Please note that you need to contact Inoue to get `azure_storage_connection_string`.
+## 5. Prepare v1.0.0 Dataset in Your Machine
 
+a) Start docker container from `PyTorch+CUDA` image on JupyterHub
+
+b) Download this repository
 ```
 git clone git@github.com:TaikiInoue/DVC.git
 cd DVC
-git checkout v1.0.0
+```
+
+c) Install python requirements
+```
+pip install -r requirements.txt
+```
+
+d) Register `connection_string`. If you don't know how to get it, please contact Inoue or Shamik.
+```
 dvc remote modify --local blob_storage connection_string [azure_storage_connection_string]
+```
+
+e) Download *.zip file
+```
 make dvc_pull
+```
+
+f) Prepare the dataset from raw datasets
+```
 make dvc_repro
 ```
