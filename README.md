@@ -239,7 +239,7 @@ dataset:
 
 <br>
 
-## 5. Prepare v1.0.0 Dataset in Your Machine
+## 5. Prepare v1.1.0 Dataset in Your Machine
 
 a) Start docker container from `PyTorch+CUDA` image on JupyterHub
 
