@@ -247,7 +247,7 @@ b) Download this repository
 ```
 git clone git@github.com:nablas-inc/somic-data.git
 cd somic-data
-git checkout v1.0.0
+git checkout v1.1.0
 ```
 
 c) Install python requirements
