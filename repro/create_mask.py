@@ -31,6 +31,8 @@ class ReproCreateMask:
             "ignore_cutting": 5,
             "ignore_oil": 6,
         }
+
+        # Normal dataset doesn't have jsons/ folder, so the following for loop is skipped.
         for p in self.raw_dataset_dir.glob("jsons/*.json"):
 
             with open(p) as f:

@@ -47,11 +47,9 @@ class ReproCheckFormat:
         ├── color_images
         |   ├── *.bmp
         |   └── *.jpg
-        ├── gray_images
-        |   ├── *.bmp
-        |   └── *.jpg
-        └── jsons
-            └── *.json
+        └── gray_images
+            ├── *.bmp
+            └── *.jpg
         """
 
         num_images_list = []
@@ -80,6 +78,7 @@ class ReproCheckFormat:
         ]
         predefined_flags = ["sabi", "unuse"]
 
+        # Normal dataset doesn't have jsons/ folder, so the following for loop is skipped.
         for p in self.raw_dataset_dir.glob("jsons/*.json"):
             with open(p) as f:
                 annotaiton = json.load(f)
@@ -104,7 +103,7 @@ class ReproCheckFormat:
         for color_type in ["color", "gray"]:
             for suffix in ["bmp", "jpg"]:
 
-                # p.stem is [raw_product_id]_[timestamp (yyyymmddhhmmssmm)]
+                # p.stem is [raw_product_id]_[timestamp (yyyymmddhhmmssmmm)]
                 product_id_list = []
                 for p in self.raw_dataset_dir.glob(f"{color_type}_images/*.{suffix}"):
                     product_id_list.append(p.stem.split("_")[0])

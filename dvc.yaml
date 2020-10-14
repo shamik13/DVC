@@ -3,6 +3,7 @@ stages:
     cmd: python repro/repro.py
     deps:
     - raw_datasets/20201005_H_2_anomaly.zip
+    - raw_datasets/20201008_H_2_normal.zip
     - repro/check_format.py
     - repro/create_info_csv.py
     - repro/create_mask.py

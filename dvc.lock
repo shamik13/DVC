@@ -3,12 +3,14 @@ prepare_dataset:
   deps:
   - path: raw_datasets/20201005_H_2_anomaly.zip
     md5: 5689fb03c4c2a1fe0014e108e0bec4a0
+  - path: raw_datasets/20201008_H_2_normal.zip
+    md5: 738b002f5d4f0e058f64c4731e988bf5
   - path: repro/check_format.py
-    md5: 1aacb28b3dee0991633b1d91fa83d77e
+    md5: 5d19b51d936e60ab48cd34f8f89f08de
   - path: repro/create_info_csv.py
     md5: 27d653b2cd14d97daa20fe70e8d3cda5
   - path: repro/create_mask.py
-    md5: 562ee727827f4f530ce260403a68bd55
+    md5: 14e3399e93e03c654ff1857f69ac6c2b
   - path: repro/crop_tobu_and_ziku.py
     md5: df98069c18ed6e975bb6a488bc6d4876
   - path: repro/merge.py
@@ -16,15 +18,15 @@ prepare_dataset:
   - path: repro/rename.py
     md5: 78843a49733afaac00c46cdc967eba79
   - path: repro/repro.py
-    md5: 3ed7e30c072783735308e2585cceb650
+    md5: 615921ec1f85517eba0078f5239b8a8e
   - path: repro/unzip.py
     md5: 2e0956fa555a23f0dc748b905653c786
   outs:
   - path: dataset/color_images
-    md5: f651551400b88ef5a5b71fc2d2a537cd.dir
+    md5: 2ab5af35319b3387e379ca9467ee8802.dir
   - path: dataset/gray_images
-    md5: 9a8c63a223f2b2869746d2713d0eafb1.dir
+    md5: 3aa63e5602e89cc3d9e57859053c741a.dir
   - path: dataset/info.csv
-    md5: cdce99131c77c4bb1d9aa4f5285e9ecb
+    md5: 9f7c9af3384eee155eba701ce5779ae1
   - path: dataset/masks
-    md5: c921122a3c295e02bbea3586cf98d2ab.dir
+    md5: 5d27e49fd125aff3a27dc10d9c391add.dir
